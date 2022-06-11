@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const postSchema = mongoose.Schema({
     word: String,
+    pronunciation: String,
     partOfSpeech: String,
     definition: String,
     artistName: String,

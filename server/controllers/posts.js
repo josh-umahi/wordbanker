@@ -19,9 +19,9 @@ export const getPost = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { word, partOfSpeech, definition, artistName, selectedFile, creator, websiteLink, instagramLink, youtubeLink, behanceLink, dribbbleLink, facebookLink, twitterLink, } = req.body;
+    const { word, pronunciation, partOfSpeech, definition, artistName, selectedFile, creator, websiteLink, instagramLink, youtubeLink, behanceLink, dribbbleLink, facebookLink, twitterLink, } = req.body;
 
-    const newPostWobArt = new PostWobArt({ word, partOfSpeech, definition, artistName, selectedFile, creator, websiteLink, instagramLink, youtubeLink, behanceLink, dribbbleLink, facebookLink, twitterLink, })
+    const newPostWobArt = new PostWobArt({ word, pronunciation, partOfSpeech, definition, artistName, selectedFile, creator, websiteLink, instagramLink, youtubeLink, behanceLink, dribbbleLink, facebookLink, twitterLink, })
 
     try {
         await newPostWobArt.save();
