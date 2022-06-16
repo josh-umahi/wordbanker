@@ -18,7 +18,7 @@ const App = () => {
   }, [currentId, dispatch]);
 
   return (
-    <Container maxWidth="lg">
+    <div>
       <Navbar />
       <Grow in>
         <Container>
@@ -32,7 +32,7 @@ const App = () => {
           </Grid>
         </Container>
       </Grow>
-    </Container>
+    </div>
   )
 }
 
