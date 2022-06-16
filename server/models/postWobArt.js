@@ -6,17 +6,9 @@ const postSchema = mongoose.Schema({
     partOfSpeech: String,
     definition: String,
     artistName: String,
+    artistLink: String,
     selectedFile: String,
-    creator: String,
-    /************ Social Media Links ************/
-    websiteLink: String,
-    instagramLink: String,
-    youtubeLink: String,
-    behanceLink: String,
-    dribbbleLink: String,
-    facebookLink: String,
-    twitterLink: String,
-    /************ ****************** ************/
+    creatorOfPost: String,
     likeCount: {
         type: Number,
         default: 0,
