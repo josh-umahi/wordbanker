@@ -4,13 +4,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import logo from "../../assets/logo.svg"
 import useStyles from './styles';
+import { useAppContext } from '../../context/AppContext';
 
 const Spacer = <div style={{ margin: "0.45em" }} />
 
 // TODO: change font family
 // TODO: why is there stuff under the navbar
+// TODO: implement button functionality 
+// TODO: implement setUserIsLoggedIn functionality 
 const Navbar = ({ window }) => {
   const classes = useStyles();
+  const { openCreateModal } = useAppContext()
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
 
@@ -19,14 +23,18 @@ const Navbar = ({ window }) => {
   };
 
   const Username = (
-    <Typography className={classes.username} variant="h6">@josh_umahi </Typography>
+    <Typography className={classes.username} variant="h6">@josh_umahi</Typography>
   )
 
-  const Button1 = (title, onClick) => (
-    <Button className={classes.button1} variant="contained" size="medium" onClick={onClick}>{title}</Button>
+  const CreatePostButton = (
+    <Button className={classes.button1} variant="contained" size="medium" onClick={openCreateModal}>create post</Button>
   )
 
-  const Button2 = (
+  const SignInButton = (
+    <Button className={classes.button1} variant="contained" size="medium">sign in</Button>
+  )
+
+  const LogoutButton = (
     <Button className={classes.button2} variant="contained" size="medium">logout</Button>
   )
 
@@ -39,15 +47,15 @@ const Navbar = ({ window }) => {
               {Username}
             </ListItem>
             <ListItem>
-              {Button1("create post", () => { })}
+              {CreatePostButton}
             </ListItem>
             <ListItem>
-              {Button2}
+              {LogoutButton}
             </ListItem>
           </List> :
           <List>
             <ListItem>
-              {Button1("sign in", () => { })}
+              {SignInButton}
             </ListItem>
           </List>
       }
@@ -68,12 +76,12 @@ const Navbar = ({ window }) => {
             <div className={classes.navRight}>
               {Username}
               {Spacer}
-              {Button1("create post", () => { })}
+              {CreatePostButton}
               {Spacer}
-              {Button2}
+              {LogoutButton}
             </div> :
             <div className={classes.navRight}>
-              {Button1("sign in", () => { })}
+              {SignInButton}
             </div>
           }
 
