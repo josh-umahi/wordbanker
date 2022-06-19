@@ -1,0 +1,403 @@
+@import url(https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap);
+
+body {
+  margin: 0px auto;
+  font-family: "Nunito", "Open Sans", sans-serif;
+}
+
+/***************** wordGallery-section *****************/
+
+.thinLine {
+  background-color: white;
+  margin: 1em auto;
+  width: 30%;
+  height: 0.8px;
+}
+
+h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.6rem;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 0px;
+  padding: 1.2em 0.5em 0.2em;
+}
+
+.wotdContainer h2 {
+  color: black;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+}
+
+.wotdContainer {
+  background-color: #e7e7e8;
+}
+
+.largeDevicesContainer,
+.largeDevicesInnerContainer2,
+.largeDevicesDescription,
+.largeDevicesOtherInfo {
+  margin: 0px;
+  padding: 0px;
+}
+
+.largeDevicesContainer,
+.largeDevicesInnerContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.largeDevicesContainer {
+  padding: 1em 0px 1.4em;
+}
+
+.largeDevicesInnerContainer {
+  padding: 0.3em 0px;
+  background-color: white;
+}
+
+.largeDevicesImage {
+  object-fit: cover;
+  height: 32.9em;
+  object-position: 0% -3.9rem;
+  margin-bottom: -3.855rem;
+}
+
+.largeDevicesInnerContainer2 {
+  height: 29em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 38.5em;
+  background-color: white;
+}
+
+.largeDevicesInnerContainer3,
+.largeDevicesDescription {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.largeDevicesInnerContainer3 {
+  margin: 1.5em;
+}
+
+.largeDevicesDescription,
+.largeDevicesOtherInfo {
+  border-right: 0.15em solid #e7e7e8;
+}
+
+.largeDevicesDescription {
+  max-height: 16.5em;
+  padding-right: 1em;
+  padding-bottom: 2.5em;
+}
+
+.largeDevicesDescription h1,
+.largeDevicesDescription h2,
+.largeDevicesDescription h3,
+.largeDevicesOtherInfo h4,
+.smallDevicesOtherInfo h4 {
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+}
+
+.largeDevicesDescription h1 {
+  font-family: "Avenir", "Nunito", sans-serif;
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 130%;
+  color: #0071f0;
+}
+
+.largeDevicesDescription h2 {
+  font-family: "Andale Mono", "Roboto Mono", serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 0px;
+  color: #0071f0;
+}
+
+.largeDevicesDescription h3,
+.largeDevicesOtherInfo h4,
+.smallDevicesOtherInfo h4 {
+  font-family: "Avenir", "Nunito", sans-serif;
+  color: black;
+}
+
+.largeDevicesDescription h3 {
+  font-size: 1.35rem;
+}
+
+.largeDevicesOtherInfo {
+  background-color: #e7e7e8;
+  padding: 0.5em 1em;
+}
+
+.largeDevicesOtherInfo h4,
+.smallDevicesOtherInfo h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  line-height: 3em;
+}
+
+.largeDevicesOtherInfo h4 span {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.smallDevicesContainer {
+  display: none;
+}
+
+.smallDevicesContainer h2 {
+  font-family: "Andale Mono", "Roboto Mono", serif;
+  font-weight: 400;
+}
+
+.smallDevicesContainer h4 {
+  color: #000;
+}
+
+.smallDevicesContainer h1,
+.smallDevicesContainer h2,
+.smallDevicesContainer h3 {
+  color: #fff;
+}
+
+.smallDevicesContainer h1,
+.smallDevicesContainer h2,
+.smallDevicesContainer h3,
+.smallDevicesContainer h4 {
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  word-break: break-word;
+}
+
+.smallDevicesContainer h1,
+.smallDevicesContainer h3 {
+  font-size: 1.2rem;
+}
+
+.smallDevicesContainer h1 {
+  font-weight: 600;
+}
+
+.smallDevicesContainer h3,
+.smallDevicesContainer h4 {
+  font-weight: 400;
+}
+
+.smallDevicesContainer h2,
+.smallDevicesContainer h4 {
+  font-size: 1rem;
+}
+
+.smallDevicesContainer h1,
+.smallDevicesContainer h4 {
+  margin-bottom: 0.5em;
+}
+
+.smallDevicesContainer h4 {
+  font-style: italic;
+  margin-bottom: 0.5em;
+}
+
+.smallDevicesContainer h4 span {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.smallDevicesInnerContainer {
+  background-color: #0071f0;
+  width: 90%;
+  min-width: 19em;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.smallDevicesDescription,
+.smallDevicesOtherInfo {
+  padding: 1em 1em 1em;
+}
+
+.smallDevicesDescription {
+  padding-top: 2em !important;
+}
+
+.smallDevicesOtherInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  opacity: 0.9;
+  border-radius: 5px;
+  padding: 0.05em 1em;
+  margin-bottom: 1em;
+}
+
+/***************** MEDIA QUERIES *****************/
+
+/***** Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/***** iPads (portrait and landscape) ----------- */
+
+/* ----------- Wotd mini-creens ----------- */
+@media only screen and (max-width: 740px) {
+  .wotdContainer {
+    background-color: white;
+  }
+
+  .wotdContainer h2:first-child,
+  .largeDevicesContainer {
+    display: none;
+  }
+
+  .smallDevicesContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.5em 1.5em;
+    background: linear-gradient(#f9f9fa, #deddde);
+  }
+
+  .smallDevicesContainer h2:first-child {
+    display: block;
+  }
+
+  h2.smallDevicesHeading {
+    font-family: "Times New Roman", Times, serif;
+    margin: 0.6em 0;
+    font-size: 1.6rem;
+  }
+
+  h2.smallDevicesHeading span {
+    font-size: 1.3rem;
+  }
+
+  h2.smallDevicesHeading,
+  h2.smallDevicesHeading span {
+    text-align: center;
+    padding: 0px;
+    color: #8b8e90;
+    max-width: 30em;
+    min-width: 15em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .smallDevicesImage {
+    margin: 0 auto -1em;
+    width: 90%;
+    border-radius: 10px;
+    min-width: 19em;
+    min-height: 19em;
+    position: relative;
+    z-index: 25;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .largeDevicesDescription {
+    margin: 0;
+    padding-bottom: 0 !important;
+  }
+
+  .smallDevicesOtherInfo h4 {
+    margin-top: 1em;
+    margin-bottom: 0.7em;
+    line-height: 100%;
+  }
+
+  .smallDevicesOtherInfo h4 span {
+    font-style: normal;
+    font-weight: 500;
+  }
+}
+
+/* ----------- 2-Wotd mini-creens ----------- */
+@media only screen and (max-width: 950px) {
+  .largeDevicesImage {
+    height: 21em;
+    width: 21em; /*recent addition*/
+    object-position: 0% -2.3rem;
+    margin-bottom: -3.855rem;
+  }
+
+  .largeDevicesInnerContainer2 {
+    height: 18.8em;
+    width: 30em;
+  }
+
+  .largeDevicesDescription h2,
+  .largeDevicesDescription h3 {
+    color: #000;
+  }
+
+  .smallDevicesOtherInfo h4 {
+    color: #000;
+  }
+
+  .largeDevicesDescription h1 {
+    font-size: 2.4rem;
+  }
+
+  .largeDevicesDescription h2 {
+    font-size: 1.18rem;
+  }
+
+  .largeDevicesDescription h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  .largeDevicesOtherInfo h4 {
+    font-size: 0.8rem;
+  }
+
+  .largeDevicesDescription {
+    max-height: 9em;
+    padding-bottom: 1.4em;
+  }
+
+  .largeDevicesOtherInfo h4 {
+    line-height: 2.1em;
+  }
+}
+
+/* ----------- Smaller screens ----------- */
+@media only screen and (max-width: 1224px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* ----------- Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ----------- Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+  html {
+    font-size: 18px;
+  }
+}

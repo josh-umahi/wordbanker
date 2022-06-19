@@ -1,6 +1,6 @@
 import React from 'react'
-import useStyles from './styles';
 
+import "./styles.css"
 import theImage from "../../assets/122.jpeg"
 
 const _theWotd_date = "19th Jun, 2022"
@@ -10,43 +10,41 @@ const _theWotd_meaning = "become less intense or widespread"
 const _theWotdArtistNAME = "M U T I"
 
 const WordOfTheDay = () => {
-    const classes = useStyles();
-
     return (
-        <section className={classes.wotdContainer}>
+        <section className="wotdContainer">
             <h2>{"Word Of The Day: " + _theWotd_date}</h2>
 
-            <div className={classes.largeDevicesContainer}>
-                <div className={classes.largeDevicesInnerContainer}>
-                    <div className={classes.largeDevicesInnerContainer2}>
-                        <div className={classes.largeDevicesInnerContainer3}>
-                            <div className={classes.largeDevicesDescription}>
+            <div className="largeDevicesContainer">
+                <div className="largeDevicesInnerContainer">
+                    <div className="largeDevicesInnerContainer2">
+                        <div className="largeDevicesInnerContainer3">
+                            <div className="largeDevicesDescription">
                                 <h1>{_theWotd_name}</h1>
                                 <h2>{_pronPluspos}</h2>
                                 <h3>{_theWotd_meaning}</h3>
                             </div>
-                            <div className={classes.largeDevicesOtherInfo}>
+                            <div className="largeDevicesOtherInfo">
                                 <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{_theWotdArtistNAME}</span></h4>
                             </div>
                         </div>
                     </div>
 
-                    <img className={classes.largeDevicesImage} src={theImage} alt="" />
+                    <img className="largeDevicesImage" src={theImage} alt="" />
                 </div>
             </div>
 
-            <div className={classes.smallDevicesContainer}>
-                <h2 className={classes.smallDevicesHeading}>WORD OF THE DAY<br /><span>{_theWotd_date}</span></h2>
-                <img className={classes.smallDevicesImage} src={theImage} alt="" />
+            <div className="smallDevicesContainer">
+                <h2 className="smallDevicesHeading">WORD OF THE DAY<br /><span>{_theWotd_date}</span></h2>
+                <img className="smallDevicesImage" src={theImage} alt="" />
 
-                <div className={classes.smallDevicesInnerContainer}>
-                    <div className={classes.smallDevicesDescription}>
+                <div className="smallDevicesInnerContainer">
+                    <div className="smallDevicesDescription">
                         <h1>{_theWotd_name}</h1>
                         <h2>{_pronPluspos}</h2>
-                        <div className={classes.thinLine} />
+                        <div className="thinLine" />
                         <h3>{_theWotd_meaning}</h3>
                     </div>
-                    <div className={classes.smallDevicesOtherInfo}>
+                    <div className="smallDevicesOtherInfo">
                         <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{_theWotdArtistNAME}</span></h4>
                     </div>
                 </div>
