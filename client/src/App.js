@@ -6,6 +6,7 @@ import { getPosts } from './actions/posts';
 import Navbar from './components/Navbar/Navbar';
 import ModalForm from './components/ModalForm/ModalForm';
 import Posts from './components/Posts/Posts';
+import WordOfTheDay from './components/WordOfTheDay/WordOfTheDay';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -18,8 +19,8 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <Grow in>
-        <Container>
+      <WordOfTheDay />
+      {/* <Container>
           <Grid container justify="space-between" alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={7}>
               <Posts />
@@ -27,8 +28,7 @@ const App = () => {
             <Grid item xs={12} sm={4}>
             </Grid>
           </Grid>
-        </Container>
-      </Grow>
+        </Container> */}
       <ModalForm typeOfForm="CREATE" />
       <ModalForm typeOfForm="EDIT" />
     </div>
