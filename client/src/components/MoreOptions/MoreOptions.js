@@ -9,13 +9,15 @@ import { Button, DialogContent } from '@material-ui/core';
 
 import useStyles from './styles';
 import { useAppContext } from '../../context/AppContext';
+import DeleteModal from '../DeleteModal/DeleteModal';
 
-const MoreOptions = ({ postId }) => {
+const MoreOptions = ({ postId, postWord }) => {
     const classes = useStyles();
-    const { changeCurrentId, openEditModal } = useAppContext()
+    const { changeCurrentId, openEditModal, openDeleteModal } = useAppContext()
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
+        changeCurrentId(postId)
         setOpen(true);
     };
 
@@ -24,12 +26,12 @@ const MoreOptions = ({ postId }) => {
     };
 
     const handleClickEdit = () => {
-        changeCurrentId(postId)
         openEditModal()
         handleClose()
     };
 
     const handleClickDelete = () => {
+        openDeleteModal()
         handleClose()
     };
 
@@ -43,14 +45,15 @@ const MoreOptions = ({ postId }) => {
                 <DialogContent dividers style={{ margin: 0, padding: 0 }}>
                     <List>
                         <ListItem button onClick={handleClickEdit}>
-                            <ListItemText>Edit "trifle"</ListItemText>
+                            <ListItemText>{`Edit "${postWord}"`}</ListItemText>
                         </ListItem>
                         <ListItem button onClick={handleClickDelete}>
-                            <ListItemText>Delete "trifle"</ListItemText>
+                            <ListItemText>{`Delete "${postWord}"`}</ListItemText>
                         </ListItem>
                     </List>
                 </DialogContent>
             </Dialog>
+            <DeleteModal postWord={postWord} />
         </div>
     );
 }

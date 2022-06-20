@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Navbar from './components/Navbar/Navbar';
 import ModalForm from './components/ModalForm/ModalForm';
@@ -15,8 +15,8 @@ const App = () => {
         <BrowseWords />
         <Posts />
       </div>
-      <ModalForm typeOfForm="CREATE" />
-      <ModalForm typeOfForm="EDIT" />
+      <ModalForm key="CREATE" typeOfForm="CREATE" />
+      <ModalForm key="EDIT" typeOfForm="EDIT" />
     </div>
   )
 }

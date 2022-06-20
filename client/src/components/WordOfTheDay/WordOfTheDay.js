@@ -12,7 +12,7 @@ const spacing = <div style={{ margin: "4.5px" }}></div>
 //* Chose not to implement <MoreOptions /> for mobile devices because I'm short on time
 const WordOfTheDay = () => {
     const posts = useSelector(state => state.posts)
-    const post = posts[0]
+    const post = posts[posts.length - 1]
 
     return (
         !posts.length ? <CircularProgress /> :
@@ -31,7 +31,7 @@ const WordOfTheDay = () => {
                                 <div className="largeDevicesOtherInfo">
                                     <div className="largeDevicesOtherInfoInnerContainer">
                                         <Likes leftAlign />
-                                        <MoreOptions postId={post._id} />
+                                        <MoreOptions postId={post._id} postWord={post.word} />
                                     </div>
                                     <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                                     <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>                            </div>

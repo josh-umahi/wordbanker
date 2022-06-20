@@ -28,7 +28,7 @@ const ModalForm = ({ typeOfForm }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const appContext = useAppContext();
-  const currentId = appContext.currentId;
+  const { currentId } = appContext;
   const [postData, setPostData] = useState(initialPostData);
   const post = useSelector((state) => (currentId ? state.posts.find((wobArt) => wobArt._id === currentId) : null));
 
@@ -42,12 +42,12 @@ const ModalForm = ({ typeOfForm }) => {
   if (typeOfForm === "EDIT") {
     open = appContext.editPostModalIsOpen
     onClose = appContext.closeEditModal
-    actionToDispatch = () => dispatch(updatePost(appContext.currentId, postData))
+    actionToDispatch = () => dispatch(updatePost(currentId, postData))
     formTitle = "Editing a New Post"
   }
 
   useEffect(() => {
-    if (post) setPostData(post);
+    if (post && typeOfForm === "EDIT") setPostData(post);
   }, [post]);
 
   const handleSubmit = (e) => {
@@ -64,7 +64,10 @@ const ModalForm = ({ typeOfForm }) => {
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={() => {
+        clear()
+        onClose()
+      }}
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle>{formTitle}</DialogTitle>
