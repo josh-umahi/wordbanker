@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Grow, Grid } from "@material-ui/core";
 import { useDispatch } from 'react-redux';
 
 import { getPosts } from './actions/posts';
@@ -21,7 +20,7 @@ const App = () => {
     <div>
       <Navbar />
       <WordOfTheDay />
-      <div style={{backgroundColor: "#f6f5f5"}}>
+      <div style={{ backgroundColor: "#f6f5f5" }}>
         <BrowseWords />
         <Posts />
       </div>

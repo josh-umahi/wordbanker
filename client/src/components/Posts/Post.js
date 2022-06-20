@@ -1,32 +1,33 @@
 import React from 'react'
 
 import "./styles.css"
-import theImage from "../../assets/122.jpeg"
+import Likes from '../Likes/Likes'
 
-const Post = () => {
-    const _theWotd_name = "ludicrous"
-    const _pronPluspos = "(loo-di-kruhs) adjective"
-    const _theWotd_meaning = "so foolish and unreasonable that it is amusing; ridiculous"
-    const _theWotdArtistNAME = "Vinay Pittampally"
+const spacing = <div style={{ margin: "6px" }}></div>
 
+const Post = ({ post }) => {
     return (
         <div className="postContainer">
             <div className="postInnerContainer">
                 <div className="postInnerContainer2">
                     <div className="postInnerContainer3">
                         <div className="postDescription">
-                            <h1>{_theWotd_name}</h1>
-                            <h2>{_pronPluspos}</h2>
+                            <h1>{post.word}</h1>
+                            <h2>{`(${post.pronunciation}) ${post.partOfSpeech}`}</h2>
                             <div className="thinLineDivider" />
-                            <h3>{_theWotd_meaning}</h3>
+                            <h3>{post.definition}</h3>
                         </div>
                         <div className="postOtherInfo">
-                            <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{_theWotdArtistNAME}</span></h4>
+                            <Likes likeCount={post.likeCount} />
+                            {spacing}
+                            <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
+                            {spacing}
+                            <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <img className="postImage" src={theImage} alt="" />
+            <img className="postImage" src={post.selectedFile} alt="" />
         </div>
     )
 }

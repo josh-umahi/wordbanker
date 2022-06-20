@@ -117,7 +117,14 @@
   padding: 0.5em 1em;
 }
 
-.largeDevicesOtherInfo h4,
+.largeDevicesOtherInfo h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  line-height: 2em;
+}
+
 .smallDevicesOtherInfo h4 {
   font-size: 1rem;
   font-weight: 400;
@@ -129,6 +136,12 @@
 .largeDevicesOtherInfo h4 span {
   font-style: normal;
   font-weight: 500;
+}
+
+.largeDevicesOtherInfoInnerContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .smallDevicesContainer {
@@ -179,13 +192,7 @@
   font-size: 1rem;
 }
 
-.smallDevicesContainer h1,
-.smallDevicesContainer h4 {
-  margin-bottom: 0.5em;
-}
-
-.smallDevicesContainer h4 {
-  font-style: italic;
+.smallDevicesContainer h1{
   margin-bottom: 0.5em;
 }
 
@@ -206,9 +213,8 @@
   align-items: center;
 }
 
-.smallDevicesDescription,
-.smallDevicesOtherInfo {
-  padding: 1em 1em 1em;
+.smallDevicesDescription {
+  padding: 1em;
 }
 
 .smallDevicesDescription {
@@ -223,7 +229,7 @@
   background-color: #fff;
   opacity: 0.9;
   border-radius: 5px;
-  padding: 0.05em 1em;
+  padding: 1.5em;
   margin-bottom: 1em;
 }
 
@@ -297,12 +303,6 @@
     padding-bottom: 0 !important;
   }
 
-  .smallDevicesOtherInfo h4 {
-    margin-top: 1em;
-    margin-bottom: 0.7em;
-    line-height: 100%;
-  }
-
   .smallDevicesOtherInfo h4 span {
     font-style: normal;
     font-weight: 500;
@@ -329,6 +329,7 @@
 
   .smallDevicesOtherInfo h4 {
     color: #000;
+    line-height: 100%;
   }
 
   .largeDevicesDescription h1 {
