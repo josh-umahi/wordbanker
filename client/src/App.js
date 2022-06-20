@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import ModalForm from './components/ModalForm/ModalForm';
 import Posts from './components/Posts/Posts';
 import WordOfTheDay from './components/WordOfTheDay/WordOfTheDay';
+import BrowseWords from './components/BrowseWords/BrowseWords';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -20,15 +21,10 @@ const App = () => {
     <div>
       <Navbar />
       <WordOfTheDay />
-      {/* <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            <Grid item xs={12} sm={7}>
-              <Posts />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-            </Grid>
-          </Grid>
-        </Container> */}
+      <div style={{backgroundColor: "#f6f5f5"}}>
+        <BrowseWords />
+        <Posts />
+      </div>
       <ModalForm typeOfForm="CREATE" />
       <ModalForm typeOfForm="EDIT" />
     </div>

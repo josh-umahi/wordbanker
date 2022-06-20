@@ -1,0 +1,75 @@
+/******* Browse Container ------------------------------*/
+.browseWordsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.browseWordsInnerContainer button,
+.navPageDiv button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  background: transparent;
+  line-height: normal;
+}
+
+.browseWordsInnerContainer h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.3rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  color: #000;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.browseWordsInnerContainer {
+  margin: 2em 1em 1em;
+  padding: 0.8em 0;
+  background-color: #e7e7e8;
+  border: 0.8px solid #8b8e90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.alphabetButtonsContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.alphabetButtonsContainer button {
+  font-family: "Avenir", "Nunito", sans-serif;
+  padding: 0;
+  text-align: center;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 2em;
+  min-height: 2em;
+  border-radius: 50%;
+  background-color: #f6f5f5;
+  border: 1px solid #fff;
+  margin: 0.5em 0.2em 0;
+}
+
+.alphabetButtonsContainer button:first-child {
+  margin-left: 0.4em;
+}
+
+.alphabetButtonsContainer button:last-child {
+  margin-right: 0.4em;
+}
+
+.alphabetButtonsContainer .disabledAlphabet {
+  opacity: 0.3;
+}
+
+.alphabetButtonsContainer button.enabledAlphabet:hover {
+  color: #fff;
+  background-color: #000;
+}

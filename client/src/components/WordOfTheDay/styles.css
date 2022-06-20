@@ -1,33 +1,18 @@
-@import url(https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap);
-@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap);
-@import url(https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap);
-@import url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap);
-
-body {
-  margin: 0px auto;
-  font-family: "Nunito", "Open Sans", sans-serif;
-}
-
 /***************** wordGallery-section *****************/
 
-.thinLine {
+.wotdContainer .thinLine {
   background-color: white;
   margin: 1em auto;
   width: 30%;
   height: 0.8px;
 }
 
-h2 {
+.wotdContainer h2 {
   font-family: "Times New Roman", Times, serif;
   font-size: 1.6rem;
-  color: white;
-  font-weight: bold;
   text-align: center;
-  margin: 0px;
   padding: 1.2em 0.5em 0.2em;
-}
-
-.wotdContainer h2 {
+  line-height: 1;
   color: black;
   font-weight: normal;
   letter-spacing: 0.1em;
@@ -35,14 +20,7 @@ h2 {
 
 .wotdContainer {
   background-color: #e7e7e8;
-}
-
-.largeDevicesContainer,
-.largeDevicesInnerContainer2,
-.largeDevicesDescription,
-.largeDevicesOtherInfo {
-  margin: 0px;
-  padding: 0px;
+  font-family: "Nunito", "Open Sans", sans-serif;
 }
 
 .largeDevicesContainer,
@@ -103,7 +81,6 @@ h2 {
 .largeDevicesOtherInfo h4,
 .smallDevicesOtherInfo h4 {
   padding: 0px;
-  margin: 0px;
   text-align: left;
 }
 
@@ -121,6 +98,7 @@ h2 {
   font-size: 1.2rem;
   letter-spacing: 0px;
   color: #0071f0;
+  margin-bottom: 6px;
 }
 
 .largeDevicesDescription h3,
@@ -345,7 +323,6 @@ h2 {
     width: 30em;
   }
 
-  .largeDevicesDescription h2,
   .largeDevicesDescription h3 {
     color: #000;
   }
@@ -360,6 +337,7 @@ h2 {
 
   .largeDevicesDescription h2 {
     font-size: 1.18rem;
+    margin-bottom: 0.5px;
   }
 
   .largeDevicesDescription h3 {
