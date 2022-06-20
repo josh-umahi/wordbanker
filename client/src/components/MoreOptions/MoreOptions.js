@@ -8,9 +8,11 @@ import Dialog from '@mui/material/Dialog';
 import { Button, DialogContent } from '@material-ui/core';
 
 import useStyles from './styles';
+import { useAppContext } from '../../context/AppContext';
 
-const MoreOptions = () => {
+const MoreOptions = ({ postId }) => {
     const classes = useStyles();
+    const { changeCurrentId, openEditModal } = useAppContext()
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -21,19 +23,29 @@ const MoreOptions = () => {
         setOpen(false);
     };
 
+    const handleClickEdit = () => {
+        changeCurrentId(postId)
+        openEditModal()
+        handleClose()
+    };
+
+    const handleClickDelete = () => {
+        handleClose()
+    };
+
     return (
         <div>
             <Button className={classes.moreOptionsButton} variant="text" onClick={handleClickOpen}>
-                <MoreHorizIcon fontSize="default" />
+                <MoreHorizIcon fontSize="medium" />
             </Button>
             <Dialog onClose={handleClose} open={open}>
                 <DialogTitle>Select an Option</DialogTitle>
                 <DialogContent dividers style={{ margin: 0, padding: 0 }}>
                     <List>
-                        <ListItem button>
+                        <ListItem button onClick={handleClickEdit}>
                             <ListItemText>Edit "trifle"</ListItemText>
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={handleClickDelete}>
                             <ListItemText>Delete "trifle"</ListItemText>
                         </ListItem>
                     </List>

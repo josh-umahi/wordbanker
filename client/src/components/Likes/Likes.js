@@ -24,7 +24,7 @@ const Likes = ({ likeCount, leftAlign }) => {
             }}
         >
             <Button className={classes.likesButton} disableTouchRipple size="small" onClick={() => { }}>
-                <ThumbUpAltOutlined color='black' fontSize='small' />
+                <ThumbUpAltOutlined color='inherit' fontSize='small' />
             </Button>
             <h4 className={classes.likesLabel} >10 likes</h4>
         </div>

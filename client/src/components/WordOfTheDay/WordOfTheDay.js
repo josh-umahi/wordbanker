@@ -7,7 +7,6 @@ import Likes from '../Likes/Likes';
 import MoreOptions from '../MoreOptions/MoreOptions';
 
 const _theWotd_date = "19th Jun, 2022"
-
 const spacing = <div style={{ margin: "4.5px" }}></div>
 
 //* Chose not to implement <MoreOptions /> for mobile devices because I'm short on time
@@ -32,7 +31,7 @@ const WordOfTheDay = () => {
                                 <div className="largeDevicesOtherInfo">
                                     <div className="largeDevicesOtherInfoInnerContainer">
                                         <Likes leftAlign />
-                                        <MoreOptions />
+                                        <MoreOptions postId={post._id} />
                                     </div>
                                     <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                                     <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>                            </div>

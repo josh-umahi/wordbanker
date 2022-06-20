@@ -6,7 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import "./index.css"
 import { reducers } from './reducers';
 import App from './App';
-import { UserInterfaceProvider } from './context/AppContext';
+import { AppContextProvider } from './context/AppContext';
 
 const store = configureStore({ reducer: reducers, })
 const container = document.getElementById('root');
@@ -14,8 +14,8 @@ const root = createRoot(container);
 
 root.render(
     <Provider store={store}>
-        <UserInterfaceProvider>
+        <AppContextProvider>
             <App />
-        </UserInterfaceProvider>
+        </AppContextProvider>
     </Provider>,
 );

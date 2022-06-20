@@ -66,7 +66,7 @@ const Navbar = ({ window }) => {
 
   return (
     <div>
-      <AppBar component="nav" color='white' position='sticky'>
+      <AppBar component="nav" style={{backgroundColor: "white"}} position='sticky'>
         <Toolbar className={classes.toolbar}>
           <Link to="/"  >
             <img className={classes.logo} src={logo} alt="" />

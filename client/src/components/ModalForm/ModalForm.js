@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -28,21 +28,31 @@ const ModalForm = ({ typeOfForm }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const appContext = useAppContext();
+  const currentId = appContext.currentId;
   const [postData, setPostData] = useState(initialPostData);
+  const post = useSelector((state) => (currentId ? state.posts.find((wobArt) => wobArt._id === currentId) : null));
 
-  let open, onClose;
+  let open, onClose, actionToDispatch, formTitle;
   if (typeOfForm === "CREATE") {
     open = appContext.createPostModalIsOpen
     onClose = appContext.closeCreateModal
+    actionToDispatch = () => dispatch(createPost(postData))
+    formTitle = "Creating a New Post"
   }
   if (typeOfForm === "EDIT") {
     open = appContext.editPostModalIsOpen
     onClose = appContext.closeEditModal
+    actionToDispatch = () => dispatch(updatePost(appContext.currentId, postData))
+    formTitle = "Editing a New Post"
   }
+
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData))
+    actionToDispatch()
     clear()
     onClose()
   }
@@ -57,14 +67,14 @@ const ModalForm = ({ typeOfForm }) => {
       onClose={onClose}
       classes={{ paper: classes.dialogWrapper }}
     >
-      <DialogTitle>Creating a New Post</DialogTitle>
+      <DialogTitle>{formTitle}</DialogTitle>
       <Divider />
       <DialogContent>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
           <TextField name="word" variant="outlined" label="Word" fullWidth value={postData.word} onChange={(e) => setPostData({ ...postData, word: e.target.value })} />
           <TextField name="pronunciation" variant="outlined" label="Pronunciation" fullWidth value={postData.pronunciation} onChange={(e) => setPostData({ ...postData, pronunciation: e.target.value })} />
           <TextField name="partOfSpeech" variant="outlined" label="Part of Speech" fullWidth value={postData.partOfSpeech} onChange={(e) => setPostData({ ...postData, partOfSpeech: e.target.value })} />
-          <TextField name="definition" variant="outlined" label="Definition" fullWidth multiline rows={3} value={postData.definition} onChange={(e) => setPostData({ ...postData, definition: e.target.value })} />
+          <TextField name="definition" variant="outlined" label="Definition" fullWidth multiline minRows={3} value={postData.definition} onChange={(e) => setPostData({ ...postData, definition: e.target.value })} />
           <TextField name="artistName" variant="outlined" label="Artist Name" fullWidth value={postData.artistName} onChange={(e) => setPostData({ ...postData, artistName: e.target.value })} />
           <TextField name="artistLink" variant="outlined" label="Artist Website URL" fullWidth value={postData.artistLink} onChange={(e) => setPostData({ ...postData, artistLink: e.target.value })} />
           <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
