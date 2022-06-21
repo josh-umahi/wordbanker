@@ -30,7 +30,7 @@ const WordOfTheDay = () => {
                                 </div>
                                 <div className="largeDevicesOtherInfo">
                                     <div className="largeDevicesOtherInfoInnerContainer">
-                                        <Likes leftAlign />
+                                        <Likes post={post} leftAlign />
                                         <MoreOptions postId={post._id} postWord={post.word} />
                                     </div>
                                     <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
@@ -54,7 +54,7 @@ const WordOfTheDay = () => {
                             <h3>{post.definition}</h3>
                         </div>
                         <div className="smallDevicesOtherInfo">
-                            <Likes />
+                            <Likes post={post} />
                             {spacing}
                             <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                             {spacing}

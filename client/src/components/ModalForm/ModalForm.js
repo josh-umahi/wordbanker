@@ -48,7 +48,7 @@ const ModalForm = ({ typeOfForm }) => {
 
   useEffect(() => {
     if (post && typeOfForm === "EDIT") setPostData(post);
-  }, [post]);
+  }, [post, typeOfForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -18,7 +18,7 @@ const Post = ({ post }) => {
                             <h3>{post.definition}</h3>
                         </div>
                         <div className="postOtherInfo">
-                            <Likes likeCount={post.likeCount} />
+                            <Likes post={post} />
                             {spacing}
                             <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                             {spacing}

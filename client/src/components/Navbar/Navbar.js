@@ -16,7 +16,7 @@ const Navbar = ({ window }) => {
   const classes = useStyles();
   const { openCreateModal } = useAppContext()
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -31,7 +31,7 @@ const Navbar = ({ window }) => {
   )
 
   const SignInButton = (
-    <Button className={classes.button1} variant="contained" size="medium">sign in</Button>
+    <Button className={classes.button1} component={Link} to="/auth" variant="contained" size="medium">sign in</Button>
   )
 
   const LogoutButton = (
@@ -66,7 +66,7 @@ const Navbar = ({ window }) => {
 
   return (
     <div>
-      <AppBar component="nav" style={{backgroundColor: "white"}} position='sticky'>
+      <AppBar component="nav" style={{ backgroundColor: "white" }} position='sticky'>
         <Toolbar className={classes.toolbar}>
           <Link to="/"  >
             <img className={classes.logo} src={logo} alt="" />

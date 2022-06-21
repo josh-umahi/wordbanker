@@ -1,23 +1,24 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import ModalForm from './components/ModalForm/ModalForm';
-import Posts from './components/Posts/Posts';
-import WordOfTheDay from './components/WordOfTheDay/WordOfTheDay';
-import BrowseWords from './components/BrowseWords/BrowseWords';
+import Auth from './components/Auth/Auth';
 
 const App = () => {
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   return (
-    <div>
-      <Navbar />
-      <WordOfTheDay />
-      <div style={{ backgroundColor: "#f6f5f5" }}>
-        <BrowseWords />
-        <Posts />
+    <BrowserRouter>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" exact element={<Navigate to="/posts" />} />
+          <Route path="/posts" exact element={<Home />} />
+          <Route path="/auth" exact element={<Auth />} />
+        </Routes>
       </div>
-      <ModalForm key="CREATE" typeOfForm="CREATE" />
-      <ModalForm key="EDIT" typeOfForm="EDIT" />
-    </div>
+    </BrowserRouter>
   )
 }
 

@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 
 import useStyles from './styles';
+import { useAppContext } from "../../context/AppContext";
+import { likePost } from '../../actions/posts';
 
-const Likes = ({ likeCount, leftAlign }) => {
+const Likes = ({ post, leftAlign }) => {
     const classes = useStyles();
-    const [likes, setLikes] = useState(likeCount);
+    const dispatch = useDispatch();
+    const currentId = post._id
+    const likeCount = post.likeCount
 
     const LikesIcon = () => {
 
     }
 
-    const LikesDescription = () => {
-
+    const handleLike = () => {
+        dispatch(likePost(currentId))
     }
 
     return (
@@ -23,10 +28,12 @@ const Likes = ({ likeCount, leftAlign }) => {
                 justifyContent: leftAlign ? "flex-start" : "center"
             }}
         >
-            <Button className={classes.likesButton} disableTouchRipple size="small" onClick={() => { }}>
+            <Button className={classes.likesButton} disableTouchRipple size="small"
+                onClick={handleLike}
+            >
                 <ThumbUpAltOutlined color='inherit' fontSize='small' />
             </Button>
-            <h4 className={classes.likesLabel} >10 likes</h4>
+            <h4 className={classes.likesLabel} >{likeCount} {likeCount === 19 ? 'Like' : 'Likes'}</h4>
         </div>
     )
 }
