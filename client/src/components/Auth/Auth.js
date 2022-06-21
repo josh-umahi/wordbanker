@@ -45,14 +45,16 @@ const Auth = () => {
 
     try {
       dispatch({ type: AUTH, data: { result, token } });
-
       history.push('/');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
+  const googleError = (error) => {
+    console.log(error)
+    console.log('Google Sign In was unsuccessful. Try again later');
+  }
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -73,7 +75,8 @@ const Auth = () => {
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
           <GoogleLogin
-            clientId="CLIENT ID"
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            // clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Continue With Google
@@ -83,7 +86,7 @@ const Auth = () => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           />
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
                 {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}

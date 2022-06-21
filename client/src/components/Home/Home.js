@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Navbar from '../Navbar/Navbar';
 import ModalForm from '../ModalForm/ModalForm';
 import Posts from '../Posts/Posts'
 import WordOfTheDay from '../WordOfTheDay/WordOfTheDay';
