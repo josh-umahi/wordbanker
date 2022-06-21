@@ -31,7 +31,7 @@ const Navbar = ({ window }) => {
   )
 
   const SignInButton = (
-    <Button className={classes.button1} component={Link} to="/auth" variant="contained" size="medium">sign in</Button>
+    <Button className={classes.button1} href="/auth" variant="contained" size="medium">sign in</Button>
   )
 
   const LogoutButton = (
@@ -68,7 +68,7 @@ const Navbar = ({ window }) => {
     <div>
       <AppBar component="nav" style={{ backgroundColor: "white" }} position='sticky'>
         <Toolbar className={classes.toolbar}>
-          <Link to="/"  >
+          <Link href="/"  >
             <img className={classes.logo} src={logo} alt="" />
           </Link>
 
