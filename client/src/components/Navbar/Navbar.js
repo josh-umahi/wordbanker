@@ -12,7 +12,7 @@ const Navbar = ({ window }) => {
   const classes = useStyles();
   const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
