@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,16 +8,23 @@ import Dialog from '@mui/material/Dialog';
 import { Button, DialogContent } from '@material-ui/core';
 
 import useStyles from './styles';
-import { useAppContext } from '../../context/AppContext';
 import DeleteModal from '../DeleteModal/DeleteModal';
+import EditPostModalForm from '../Forms/EditPostModalForm';
 
-const MoreOptions = ({ postId, postWord }) => {
+const MoreOptions = ({ post }) => {
     const classes = useStyles();
-    const { changeCurrentId, openEditModal, openDeleteModal } = useAppContext()
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [editPostModalIsOpen, setEditPostModalIsOpen] = useState(false);
+    const [deletePostModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const postWord = post.word
+
+    const openEditModal = () => setEditPostModalIsOpen(true);
+    const closeEditModal = () => setEditPostModalIsOpen(false);
+
+    const openDeleteModal = () => setDeleteModalIsOpen(true);
+    const closeDeleteModal = () => setDeleteModalIsOpen(false);
 
     const handleClickOpen = () => {
-        changeCurrentId(postId)
         setOpen(true);
     };
 
@@ -53,7 +60,17 @@ const MoreOptions = ({ postId, postWord }) => {
                     </List>
                 </DialogContent>
             </Dialog>
-            <DeleteModal postWord={postWord} />
+            <EditPostModalForm
+                currentPostData={post}
+                editPostModalIsOpen={editPostModalIsOpen}
+                closeEditModal={closeEditModal}
+            />
+            <DeleteModal
+                postWord={postWord}
+                postId={post._id}
+                deletePostModalIsOpen={deletePostModalIsOpen}
+                closeDeleteModal={closeDeleteModal}
+            />
         </div>
     );
 }

@@ -7,17 +7,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 
-import { useAppContext } from "../../context/AppContext";
 import { deletePost } from '../../actions/posts';
 
-const redColorStyle = {color: "red"}
+const redColorStyle = { color: "red" }
 
-const DeleteModal = ({ postWord }) => {
-    const { currentId, deletePostModalIsOpen, closeDeleteModal } = useAppContext();
+const DeleteModal = ({ postWord, postId, deletePostModalIsOpen, closeDeleteModal }) => {
     const dispatch = useDispatch();
 
     const handleDelete = () => {
-        dispatch(deletePost(currentId))
+        dispatch(deletePost(postId))
         closeDeleteModal()
     };
 

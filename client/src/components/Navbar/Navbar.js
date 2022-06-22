@@ -4,23 +4,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import logo from "../../assets/logo.svg"
 import useStyles from './styles';
-import { useAppContext } from '../../context/AppContext';
+import CreatePostModalForm from '../Forms/CreatePostModalForm';
 
 const Spacer = <div style={{ margin: "0.45em" }} />
 
-// TODO: change font family
-// TODO: why is there stuff under the navbar
-// TODO: implement button functionality 
-// TODO: implement setUserIsLoggedIn functionality 
 const Navbar = ({ window }) => {
   const classes = useStyles();
-  const { openCreateModal } = useAppContext()
+  const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+
+  const openCreateModal = () => setCreatePostModalIsOpen(true);
+  const closeCreateModal = () => setCreatePostModalIsOpen(false);
 
   const Username = (
     <Typography className={classes.username} variant="h6">@josh_umahi</Typography>
@@ -66,6 +66,7 @@ const Navbar = ({ window }) => {
 
   return (
     <div>
+      <CreatePostModalForm createPostModalIsOpen={createPostModalIsOpen} closeCreateModal={closeCreateModal} />
       <AppBar component="nav" style={{ backgroundColor: "white" }} position='sticky'>
         <Toolbar className={classes.toolbar}>
           <Link href="/"  >

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import ModalForm from '../ModalForm/ModalForm';
 import Posts from '../Posts/Posts'
 import WordOfTheDay from '../WordOfTheDay/WordOfTheDay';
 import BrowseWords from '../BrowseWords/BrowseWords';
@@ -13,8 +12,6 @@ const Home = () => {
                 <BrowseWords />
                 <Posts />
             </div>
-            <ModalForm key="CREATE" typeOfForm="CREATE" />
-            <ModalForm key="EDIT" typeOfForm="EDIT" />
         </div>
     )
 }
