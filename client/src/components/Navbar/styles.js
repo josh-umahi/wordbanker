@@ -12,6 +12,7 @@ export default makeStyles(() => ({
     },
     menuIconButtonDiv: {
         display: "block",
+        color: "black",
         '@media (min-width: 850px)': {
             display: 'none'
         }
@@ -27,6 +28,7 @@ export default makeStyles(() => ({
         fontSize: "18px",
         letterSpacing: 0.5,
         fontWeight: 400,
+        color: "black",
     },
     button1: {
         fontWeight: 500,

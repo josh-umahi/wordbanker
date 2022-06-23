@@ -11,7 +11,7 @@ const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModa
 
     useEffect(() => {
         setPostData(currentPostData)
-    }, [editPostModalIsOpen])
+    }, [editPostModalIsOpen, currentPostData])
 
 
     const handleSubmit = (e) => {

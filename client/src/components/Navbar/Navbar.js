@@ -1,29 +1,63 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, Toolbar, Typography } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu';
+import decode from 'jwt-decode';
 
 import logo from "../../assets/logo.svg"
 import useStyles from './styles';
 import CreatePostModalForm from '../Forms/CreatePostModalForm';
+import * as actionType from '../../constants/actionTypes';
 
 const Spacer = <div style={{ margin: "0.45em" }} />
 
 const Navbar = ({ window }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
   const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setUserIsLoggedIn(user !== null)
+  }, [user])
+
+  useEffect(() => {
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [location]);
+
+  const logout = () => {
+    dispatch({ type: actionType.LOGOUT });
+
+    navigate('/auth');
+
+    setUser(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-
   const openCreateModal = () => setCreatePostModalIsOpen(true);
   const closeCreateModal = () => setCreatePostModalIsOpen(false);
 
-  const Username = (
-    <Typography className={classes.username} variant="h6">@josh_umahi</Typography>
+  const username = `@${user?.result.username}`
+
+  // I made this a function because the value only needs to be known if userIsLoggedIn is true
+  const Username = () => (
+    <Typography className={classes.username} variant="h6">{username}</Typography>
   )
 
   const CreatePostButton = (
@@ -31,11 +65,11 @@ const Navbar = ({ window }) => {
   )
 
   const SignInButton = (
-    <Button className={classes.button1} href="/auth" variant="contained" size="medium">sign in</Button>
+    <Button className={classes.button1} variant="contained" size="medium" href="/auth">sign in</Button>
   )
 
   const LogoutButton = (
-    <Button className={classes.button2} variant="contained" size="medium">logout</Button>
+    <Button className={classes.button2} variant="contained" size="medium" onClick={logout}>logout</Button>
   )
 
   const drawer = (
@@ -44,7 +78,7 @@ const Navbar = ({ window }) => {
         userIsLoggedIn ?
           <List>
             <ListItem>
-              {Username}
+              {Username()}
             </ListItem>
             <ListItem>
               {CreatePostButton}
@@ -75,7 +109,7 @@ const Navbar = ({ window }) => {
 
           {userIsLoggedIn ?
             <div className={classes.navRight}>
-              {Username}
+              {Username()}
               {Spacer}
               {CreatePostButton}
               {Spacer}

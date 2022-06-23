@@ -48,5 +48,5 @@ export const signup = async (req, res) => {
 
 const generateUsername = (email) => {
     const index = email.indexOf("@");
-    return paragraph.slice(0, index)
+    return email.slice(0, index)
 }

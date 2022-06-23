@@ -15,6 +15,32 @@ export const getPosts = async (req, res) => {
     }
 }
 
+export const getPostsBySearch = async (req, res) => {
+    const { searchQuery, tags } = req.query;
+
+    try {
+        const title = new RegExp(searchQuery, "i");
+
+        const posts = await PostWobArt.find({ $or: [{ title }] });
+
+        res.json({ data: posts });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getPostsByCreator = async (req, res) => {
+    const { username } = req.query;
+
+    try {
+        const posts = await PostWobArt.find({ username });
+
+        res.json({ data: posts });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const getPost = async (req, res) => {
     const { id } = req.params;
 
@@ -30,7 +56,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
     const post = req.body;
 
-    const newPostWobArt = new PostWobArt({ ...post, createdAt: new Date().toISOString() })
+    const newPostWobArt = new PostWobArt({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
 
     try {
         await newPostWobArt.save();
@@ -73,7 +99,7 @@ export const likePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const post = await PostMessage.findById(id);
+    const post = await PostWobArt.findById(id);
 
     const index = post.likes.findIndex((id) => id === String(req.userId));
 
@@ -83,7 +109,7 @@ export const likePost = async (req, res) => {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+    const updatedPost = await PostWobArt.findByIdAndUpdate(id, post, { new: true });
 
     res.status(200).json(updatedPost);
 }
