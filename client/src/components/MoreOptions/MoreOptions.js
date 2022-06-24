@@ -10,14 +10,15 @@ import { Button, DialogContent } from '@material-ui/core';
 import useStyles from './styles';
 import DeleteModal from '../DeleteModal/DeleteModal';
 import EditPostModalForm from '../Forms/EditPostModalForm';
+import { useAppContext } from '../../context/AppContext';
 
 const MoreOptions = ({ post }) => {
-    const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [editPostModalIsOpen, setEditPostModalIsOpen] = useState(false);
     const [deletePostModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const { user } = useAppContext()
+    const classes = useStyles();
     const postWord = post.word
-    const user = JSON.parse(localStorage.getItem('profile'));
 
     const openEditModal = () => setEditPostModalIsOpen(true);
     const closeEditModal = () => setEditPostModalIsOpen(false);

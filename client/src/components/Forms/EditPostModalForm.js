@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 
 import { updatePost } from '../../actions/posts';
+import { useAppContext } from "../../context/AppContext";
 import initialPostData from "./constants";
 import ModalForm from "./ModalForm";
 
 const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModal }) => {
-    const user = JSON.parse(localStorage.getItem('profile'));
     const [postData, setPostData] = useState(currentPostData);
+    const { user } = useAppContext()
     const dispatch = useDispatch();
 
     useEffect(() => {

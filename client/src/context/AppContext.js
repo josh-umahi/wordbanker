@@ -6,7 +6,10 @@ export const AppContext = createContext(null);
 export const useAppContext = () => useContext(AppContext);
 
 export const AppContextProvider = ({ children }) => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
+
+  const handleSetUser = (value) => setUser(value)
 
   useEffect(() => {
     dispatch(getPosts());
@@ -15,6 +18,8 @@ export const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        user,
+        handleSetUser
       }}
     >
       {children}

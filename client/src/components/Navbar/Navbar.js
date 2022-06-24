@@ -9,18 +9,19 @@ import logo from "../../assets/logo.svg"
 import useStyles from './styles';
 import CreatePostModalForm from '../Forms/CreatePostModalForm';
 import * as actionType from '../../constants/actionTypes';
+import { useAppContext } from '../../context/AppContext';
 
 const Spacer = <div style={{ margin: "0.45em" }} />
 
 const Navbar = ({ window }) => {
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+  const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, handleSetUser } = useAppContext()
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
-  const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     setUserIsLoggedIn(user !== null)
@@ -35,7 +36,7 @@ const Navbar = ({ window }) => {
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
-    setUser(JSON.parse(localStorage.getItem('profile')));
+    handleSetUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
   const logout = () => {
@@ -43,7 +44,7 @@ const Navbar = ({ window }) => {
 
     navigate('/auth');
 
-    setUser(null);
+    handleSetUser(null);
   };
 
   const handleDrawerToggle = () => {

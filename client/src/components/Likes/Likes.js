@@ -7,13 +7,14 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 
 import useStyles from './styles';
 import { likePost } from '../../actions/posts';
+import { useAppContext } from '../../context/AppContext';
 
 const Likes = ({ post, leftAlign }) => {
+    const [likes, setLikes] = useState(post.likes)
+    const { user } = useAppContext()
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('profile'));
-    const [likes, setLikes] = useState(post.likes)
     const postId = post._id
     const userId = user?.result?._id;
 

@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { createPost } from '../../actions/posts';
 import ModalForm from "./ModalForm";
 import initialPostData from "./constants";
+import { useAppContext } from "../../context/AppContext";
 
 const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
-    const user = JSON.parse(localStorage.getItem('profile'));
     const [postData, setPostData] = useState(initialPostData);
+    const { user } = useAppContext()
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
