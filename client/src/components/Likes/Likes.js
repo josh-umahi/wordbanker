@@ -1,25 +1,48 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 
 import useStyles from './styles';
-import { useAppContext } from "../../context/AppContext";
 import { likePost } from '../../actions/posts';
 
 const Likes = ({ post, leftAlign }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const currentId = post._id
-    const likeCount = post.likeCount
+    const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem('profile'));
+    const [likes, setLikes] = useState(post.likes)
+    const postId = post._id
+    const userId = user?.result?._id;
+
+    const hasLikedPost = () => post.likes.find((like) => like === userId);
 
     const LikesIcon = () => {
+        if (likes.length > 0) {
+            return likes.find((like) => like === userId)
+                ? <ThumbUpAltIcon color='inherit' fontSize='small' />
+                : <ThumbUpAltOutlined color='inherit' fontSize='small' />
+        }
 
+        return <ThumbUpAltOutlined color='inherit' fontSize='small' />
     }
 
-    const handleLike = () => {
-        dispatch(likePost(currentId))
+    const handleLike = (e) => {
+        e.preventDefault();
+
+        if (user === null) {
+            navigate('/auth')
+        } else {
+            dispatch(likePost(postId))
+
+            if (hasLikedPost()) {
+                setLikes(post.likes.filter((id) => id !== userId));
+            } else {
+                setLikes([...post.likes, userId]);
+            }
+        }
     }
 
     return (
@@ -28,12 +51,14 @@ const Likes = ({ post, leftAlign }) => {
                 justifyContent: leftAlign ? "flex-start" : "center"
             }}
         >
-            <Button className={classes.likesButton} disableTouchRipple size="small"
+            <Button
+                className={classes.likesButton}
+                disableTouchRipple size="small"
                 onClick={handleLike}
             >
-                <ThumbUpAltOutlined color='inherit' fontSize='small' />
+                <LikesIcon />
             </Button>
-            <h4 className={classes.likesLabel} >{likeCount} {likeCount === 19 ? 'Like' : 'Likes'}</h4>
+            <h4 className={classes.likesLabel} >{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</h4>
         </div>
     )
 }

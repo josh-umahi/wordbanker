@@ -11,7 +11,7 @@ const spacing = <div style={{ margin: "4.5px" }}></div>
 
 const WordOfTheDay = () => {
     const posts = useSelector(state => state.posts)
-    const post = posts[posts.length - 1]
+    const post = posts[0]
 
     return (
         !posts.length ? <CircularProgress /> :
@@ -33,7 +33,7 @@ const WordOfTheDay = () => {
                                         <MoreOptions post={post} />
                                     </div>
                                     <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
-                                    <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>                            </div>
+                                    <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>                            </div>
                             </div>
                         </div>
 
@@ -57,7 +57,7 @@ const WordOfTheDay = () => {
                             {spacing}
                             <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                             {spacing}
-                            <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>                    </div>
+                            <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>                    </div>
                     </div>
                 </div>
             </section>

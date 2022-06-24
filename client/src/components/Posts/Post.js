@@ -22,7 +22,7 @@ const Post = ({ post }) => {
                             {spacing}
                             <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
                             {spacing}
-                            <h4>post by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
+                            <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ const MoreOptions = ({ post }) => {
     const [editPostModalIsOpen, setEditPostModalIsOpen] = useState(false);
     const [deletePostModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const postWord = post.word
+    const user = JSON.parse(localStorage.getItem('profile'));
 
     const openEditModal = () => setEditPostModalIsOpen(true);
     const closeEditModal = () => setEditPostModalIsOpen(false);
@@ -42,7 +43,7 @@ const MoreOptions = ({ post }) => {
         handleClose()
     };
 
-    return (
+    return (user?.result?._id === post?.creator) && (
         <div>
             <Button className={classes.moreOptionsButton} variant="text" onClick={handleClickOpen}>
                 <MoreHorizIcon fontSize="medium" />

@@ -6,6 +6,7 @@ import initialPostData from "./constants";
 import ModalForm from "./ModalForm";
 
 const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModal }) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
     const [postData, setPostData] = useState(currentPostData);
     const dispatch = useDispatch();
 
@@ -16,7 +17,7 @@ const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModa
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(updatePost(currentPostData._id, postData))
+        dispatch(updatePost(currentPostData._id, { ...postData, username: user?.result?.username }))
         closeEditModal()
     }
 

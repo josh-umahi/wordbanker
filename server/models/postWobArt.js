@@ -8,7 +8,8 @@ const postSchema = mongoose.Schema({
     artistName: String,
     artistLink: String,
     selectedFile: String,
-    creatorOfPost: String,
+    creator: String, // the user's id
+    username: String, // the user's username
     likes: { type: [String], default: [] },
     createdAt: {
         type: Date,

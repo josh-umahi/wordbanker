@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { createPost } from '../../actions/posts';
 import ModalForm from "./ModalForm";
 import initialPostData from "./constants";
 
 const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
     const [postData, setPostData] = useState(initialPostData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createPost(postData))
+        dispatch(createPost({ ...postData, username: user?.result?.username }, navigate))
         clear()
         closeCreateModal()
     }
