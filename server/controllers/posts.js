@@ -19,9 +19,9 @@ export const getPostsBySearch = async (req, res) => {
     const { searchQuery } = req.query;
 
     try {
-        const title = new RegExp(searchQuery, "i");
+        const word = new RegExp("^" + searchQuery, "i");
 
-        const posts = await PostWobArt.find({ $or: [{ title }] });
+        const posts = await PostWobArt.find({ word });
 
         res.json({ data: posts });
     } catch (error) {

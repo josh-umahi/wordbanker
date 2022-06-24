@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import { getPostsBySearch } from '../actions/posts';
+import useDidMountEffect from "../hooks/useDidMountEffect";
 
 export const PostsListedContext = createContext(null);
 export const usePostsListedContext = () => useContext(PostsListedContext);
@@ -12,14 +13,20 @@ const useQuery = () => {
 }
 
 export const PostsListedContextProvider = ({ children }) => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState('A');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const query = useQuery();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
 
-    const handleSetSearch = (value) => setSearch(value)
+    useDidMountEffect(() => {
+        searchPost()
+    }, [search])
+
+    const handleSetSearch = (value) => {
+        setSearch(value)
+    }
 
     const searchPost = () => {
         if (search.trim()) {
@@ -37,7 +44,6 @@ export const PostsListedContextProvider = ({ children }) => {
                 searchQuery,
                 search,
                 handleSetSearch,
-                searchPost,
             }}
         >
             {children}

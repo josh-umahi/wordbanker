@@ -65,11 +65,9 @@
   margin-right: 0.4em;
 }
 
-.alphabetButtonsContainer .disabledAlphabet {
-  opacity: 0.3;
-}
-
-.alphabetButtonsContainer button.enabledAlphabet:hover {
+.alphabetButtonsContainer button.enabledAlphabet:hover,
+.alphabetButtonsContainer .clickedButton {
   color: #fff;
   background-color: #000;
+  cursor: pointer;
 }

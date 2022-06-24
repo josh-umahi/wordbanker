@@ -4,13 +4,12 @@ import "./styles.css"
 import Likes from '../Likes/Likes';
 import MoreOptions from '../MoreOptions/MoreOptions';
 
-const todaysDate = new Date().getDate().toString()
 const spacing = <div style={{ margin: "4.5px" }}></div>
 
-const PostExpanded = ({ post }) => {
+const PostExpanded = ({ post, todaysDate }) => {
     const ArtBy = () => (
         <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;
-            <a className='artistName' target="_blank" href={post.artistLink}>{post.artistName}</a>
+            <a className='artistName' target="_blank" rel="noopener noreferrer" href={post.artistLink}>{post.artistName}</a>
         </h4>
     )
 
@@ -20,7 +19,7 @@ const PostExpanded = ({ post }) => {
 
     return (
         <section className="postExpandedContainer">
-            <h2>{"Word Of The Day: " + todaysDate}</h2>
+            {todaysDate && <h2>{"Word Of The Day: " + todaysDate}</h2>}
 
             <div className="largeDevicesContainer">
                 <div className="largeDevicesInnerContainer">
@@ -47,7 +46,7 @@ const PostExpanded = ({ post }) => {
             </div>
 
             <div className="smallDevicesContainer">
-                <h2 className="smallDevicesHeading">WORD OF THE DAY<br /><span>{todaysDate}</span></h2>
+                {todaysDate && <h2 className="smallDevicesHeading">WORD OF THE DAY<br /><span>{todaysDate}</span></h2>}
                 <img className="smallDevicesImage" src={post.selectedFile} alt="" />
 
                 <div className="smallDevicesInnerContainer">
