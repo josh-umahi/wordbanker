@@ -107,7 +107,7 @@ section {
 }
 body {
   line-height: 1;
-  background-color: #E7E7E8;
+  background-color: #e7e7e8;
 }
 ol,
 ul {
@@ -127,4 +127,15 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.artistName:hover {
+  color: #0071f0;
+  cursor: pointer;
+  text-decoration: underline;
 }

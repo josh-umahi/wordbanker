@@ -20,9 +20,11 @@ const Post = ({ post }) => {
                         <div className="postOtherInfo">
                             <Likes post={post} />
                             {spacing}
-                            <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
+                            <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a className='artistName' target="_blank" href={post.artistLink}>{post.artistName}</a>
+                            </h4>
                             {spacing}
-                            <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>
+                            <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.username}</span></h4>
                         </div>
                     </div>
                 </div>

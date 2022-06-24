@@ -54,11 +54,9 @@ const Navbar = ({ window }) => {
   const openCreateModal = () => setCreatePostModalIsOpen(true);
   const closeCreateModal = () => setCreatePostModalIsOpen(false);
 
-  const username = `@${user?.result.username}`
-
   // I made this a function because the value only needs to be known if userIsLoggedIn is true
   const Username = () => (
-    <Typography className={classes.username} variant="h6">{username}</Typography>
+    <Typography className={classes.username} variant="h6">{user?.result.username}</Typography>
   )
 
   const CreatePostButton = (

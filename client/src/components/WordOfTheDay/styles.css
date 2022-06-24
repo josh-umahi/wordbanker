@@ -1,5 +1,3 @@
-/***************** wordGallery-section *****************/
-
 .wotdContainer .thinLine {
   background-color: white;
   margin: 1em auto;
@@ -138,7 +136,7 @@
   font-weight: 500;
 }
 
-.largeDevicesOtherInfoInnerContainer{
+.largeDevicesOtherInfoInnerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -192,7 +190,7 @@
   font-size: 1rem;
 }
 
-.smallDevicesContainer h1{
+.smallDevicesContainer h1 {
   margin-bottom: 0.5em;
 }
 
@@ -244,7 +242,7 @@
 
 /***** iPads (portrait and landscape) ----------- */
 
-/* ----------- Wotd mini-creens ----------- */
+/* -----------  Mini-creens ----------- */
 @media only screen and (max-width: 740px) {
   .wotdContainer {
     background-color: white;

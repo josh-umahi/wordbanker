@@ -13,6 +13,16 @@ const WordOfTheDay = () => {
     const posts = useSelector(state => state.posts)
     const post = posts[0]
 
+    const ArtBy = () => (
+        <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;
+            <a className='artistName' target="_blank" href={post.artistLink}>{post.artistName}</a>
+        </h4>
+    )
+
+    const PostBy = () => (
+        <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.username}</span></h4>
+    )
+
     return (
         !posts.length ? <CircularProgress /> :
             <section className="wotdContainer">
@@ -32,8 +42,9 @@ const WordOfTheDay = () => {
                                         <Likes post={post} leftAlign />
                                         <MoreOptions post={post} />
                                     </div>
-                                    <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
-                                    <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>                            </div>
+                                    <ArtBy />
+                                    <PostBy />
+                                </div>
                             </div>
                         </div>
 
@@ -55,9 +66,10 @@ const WordOfTheDay = () => {
                         <div className="smallDevicesOtherInfo">
                             <Likes post={post} />
                             {spacing}
-                            <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{post.artistName}</span></h4>
+                            <ArtBy />
                             {spacing}
-                            <h4>posted by:&nbsp;&nbsp;&nbsp;&nbsp;<span>{`@${post.username}`}</span></h4>                    </div>
+                            <PostBy />
+                        </div>
                     </div>
                 </div>
             </section>
