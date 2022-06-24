@@ -1,11 +1,11 @@
-.wotdContainer .thinLine {
+.postExpandedContainer .thinLine {
   background-color: white;
   margin: 1em auto;
   width: 30%;
   height: 0.8px;
 }
 
-.wotdContainer h2 {
+.postExpandedContainer h2 {
   font-family: "Times New Roman", Times, serif;
   font-size: 1.6rem;
   text-align: center;
@@ -16,7 +16,7 @@
   letter-spacing: 0.1em;
 }
 
-.wotdContainer {
+.postExpandedContainer {
   background-color: #e7e7e8;
   font-family: "Nunito", "Open Sans", sans-serif;
 }
@@ -244,11 +244,11 @@
 
 /* -----------  Mini-creens ----------- */
 @media only screen and (max-width: 740px) {
-  .wotdContainer {
+  .postExpandedContainer {
     background-color: white;
   }
 
-  .wotdContainer h2:first-child,
+  .postExpandedContainer h2:first-child,
   .largeDevicesContainer {
     display: none;
   }

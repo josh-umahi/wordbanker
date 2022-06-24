@@ -77,7 +77,7 @@ const Navbar = ({ window }) => {
         userIsLoggedIn ?
           <List>
             <ListItem>
-              {Username()}
+              <Username />
             </ListItem>
             <ListItem>
               {CreatePostButton}
@@ -108,7 +108,7 @@ const Navbar = ({ window }) => {
 
           {userIsLoggedIn ?
             <div className={classes.navRight}>
-              {Username()}
+              <Username />
               {Spacer}
               {CreatePostButton}
               {Spacer}

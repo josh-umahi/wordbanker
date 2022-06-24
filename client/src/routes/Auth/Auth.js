@@ -4,9 +4,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import { useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import Icon from './icon';
 import { signin, signup } from '../../actions/auth';
-import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
 
