@@ -13,8 +13,9 @@ const Post = ({ post }) => {
         navigate(`/posts/${post._id}`);
     };
 
+    // TODO: Need a better way to do this openPost 
     return (
-        <button className="postContainer" onClick={openPost}>
+        <div className="postContainer" onClick={openPost}>
             <div className="postInnerContainer">
                 <div className="postInnerContainer2">
                     <div className="postInnerContainer3">
@@ -37,7 +38,7 @@ const Post = ({ post }) => {
                 </div>
             </div>
             <img className="postImage" src={post.selectedFile} alt="" />
-        </button>
+        </div>
     )
 }
 

@@ -35,18 +35,6 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
-export const getPostsByCreator = async (req, res) => {
-    const { username } = req.query;
-
-    try {
-        const posts = await PostWobArt.find({ username });
-
-        res.json({ data: posts });
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
 export const getPost = async (req, res) => {
     const { id } = req.params;
 

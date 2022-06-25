@@ -18,6 +18,14 @@ const PostDetails = () => {
         dispatch(getPost(id));
     }, [id]);
 
+    /* 
+        TODO:
+        Recommended post logic:  similar to theirs but searches for 
+        most recent words of the same partOfSpeech as the selected post. 
+        It then renders 5 of them at most. If there are none, it defaults
+        to wotd posts
+    */
+
     return !posts.length ? <CircularProgress /> : (
         <div>
             <PostExpanded post={post} />
