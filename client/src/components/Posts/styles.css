@@ -39,7 +39,7 @@
 
 .postInnerContainer {
   opacity: 0;
-  opacity: 1;
+  /* opacity: 1; */
   transition: 0.6s;
   cursor: pointer;
 }
