@@ -5,10 +5,13 @@ import { useSelector } from 'react-redux';
 import Post from './Post'
 
 const Posts = () => {
-    const posts = useSelector(state => state.posts)
+    const { posts, isLoading } = useSelector(state => state.posts)
+
+    // TODO: There are currently no “B” words. Check back later!
+    if (!posts.length && !isLoading) return 'No posts';
 
     return (
-        !posts.length ? <CircularProgress /> :
+        isLoading ? <CircularProgress /> :
             <div className="postsContainer">
                 {posts?.map((post) => (
                     <Post key={post._id} post={post} />

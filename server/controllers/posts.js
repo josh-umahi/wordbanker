@@ -6,10 +6,16 @@ import PostWobArt from '../models/postWobArt.js';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
-    try {
-        const postWobArts = await PostWobArt.find();
+    const { page } = req.query;
 
-        res.status(200).json(postWobArts);
+    try {
+        const LIMIT = 3;  // TODO: change to 6
+        const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+
+        const total = await PostWobArt.countDocuments({});
+        const posts = await PostWobArt.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+        res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

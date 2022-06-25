@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { getPostsBySearch } from '../actions/posts';
 import useDidMountEffect from "../hooks/useDidMountEffect";
@@ -9,7 +9,7 @@ export const PostsListedContext = createContext(null);
 export const usePostsListedContext = () => useContext(PostsListedContext);
 
 const useQuery = () => {
-    return new URLSearchParams(useNavigate().search);
+    return new URLSearchParams(useLocation().search);
 }
 
 export const PostsListedContextProvider = ({ children }) => {

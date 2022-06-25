@@ -8,7 +8,7 @@ import formatDate from '../../utils/formatDate';
 const todaysDate = formatDate(new Date())
 
 const WordOfTheDay = () => {
-    const posts = useSelector(state => state.posts)
+    const {posts} = useSelector(state => state.posts)
     const wordOfTheDayPost = posts[0]
 
     return (
