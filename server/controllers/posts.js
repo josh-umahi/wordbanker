@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import fetch from "node-fetch";
 
 import PostWobArt from '../models/postWobArt.js';
+import getPronunciation from '../utils/getPronunciation.js';
 
 const router = express.Router();
 
@@ -48,26 +48,12 @@ export const getPost = async (req, res) => {
     }
 }
 
-const getPronunciation = async (word) => {
-    try {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-        const wordObject = await response.json();
-
-        const pronunciation = wordObject[0]?.phonetics[0]?.audio
-
-        return pronunciation
-    } catch (error) {
-        console.log(error);
-        return null
-    }
-}
-
 export const createPost = async (req, res) => {
     const post = req.body;
 
-    const pronunciation = await getPronunciation(post.word)
+    const pronunciationLink = await getPronunciation(post.word)
 
-    const newPostWobArt = new PostWobArt({ ...post, pronunciation, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostWobArt = new PostWobArt({ ...post, pronunciation: pronunciationLink, creator: req.userId, createdAt: new Date().toISOString() })
 
     try {
         await newPostWobArt.save();

@@ -1,6 +1,5 @@
 const initialPostData = {
     word: '',
-    pronunciation: '',
     partOfSpeech: '',
     definition: '',
     artistName: '',
