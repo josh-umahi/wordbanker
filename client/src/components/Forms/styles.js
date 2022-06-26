@@ -40,4 +40,8 @@ export default makeStyles(theme => ({
             color: "white",
         },
     },
+    errorText: {
+        textAlign: "left",
+        color: "#FF114A",
+    }
 }));

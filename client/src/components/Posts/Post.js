@@ -21,7 +21,6 @@ const Post = ({ post }) => {
                     <div className="postInnerContainer3">
                         <div className="postDescription">
                             <h1>{post.word}</h1>
-                            <h2>{`(${post.pronunciation}) ${post.partOfSpeech}`}</h2>
                             <div className="thinLineDivider" />
                             <h3>{post.definition}</h3>
                         </div>

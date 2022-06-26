@@ -14,12 +14,12 @@ const toOrdinalSuffix = (numb) => {
 }
 
 const formatDate = (dateObj) => {
-    const theMonth = monthNames[dateObj.getMonth()];
-    const theDay = toOrdinalSuffix(dateObj.getDate());
-    const theYr = dateObj.getFullYear();
+    const month = monthNames[dateObj.getMonth()];
+    const day = toOrdinalSuffix(dateObj.getDate());
+    const year = dateObj.getFullYear();
 
     //returns date in form: "29th May, 2020"
-    return `${theDay} ${theMonth}, ${theYr}`;
+    return `${day} ${month}, ${year}`;
 };
 
 export default formatDate

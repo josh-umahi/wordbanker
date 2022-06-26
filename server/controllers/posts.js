@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import fetch from "node-fetch";
 
 import PostWobArt from '../models/postWobArt.js';
 
@@ -9,7 +10,7 @@ export const getPosts = async (req, res) => {
     const { page } = req.query;
 
     try {
-        const LIMIT = 3;  // TODO: change to 6
+        const LIMIT = 3;
         const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
 
         const total = await PostWobArt.countDocuments({});
@@ -47,10 +48,26 @@ export const getPost = async (req, res) => {
     }
 }
 
+const getPronunciation = async (word) => {
+    try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        const wordObject = await response.json();
+
+        const pronunciation = wordObject[0]?.phonetics[0]?.audio
+
+        return pronunciation
+    } catch (error) {
+        console.log(error);
+        return null
+    }
+}
+
 export const createPost = async (req, res) => {
     const post = req.body;
 
-    const newPostWobArt = new PostWobArt({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const pronunciation = await getPronunciation(post.word)
+
+    const newPostWobArt = new PostWobArt({ ...post, pronunciation, creator: req.userId, createdAt: new Date().toISOString() })
 
     try {
         await newPostWobArt.save();

@@ -14,8 +14,7 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         dispatch(
             createPost({
                 ...postData,
@@ -49,6 +48,7 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
             setPostData={handleSetPostData}
             handleSubmit={handleSubmit}
             clear={clear}
+            isCreate
         />
     );
 };

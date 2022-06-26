@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { IconButton } from '@material-ui/core';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
 import "./styles.css"
 import Likes from '../Likes/Likes';
@@ -7,6 +9,23 @@ import MoreOptions from '../MoreOptions/MoreOptions';
 const spacing = <div style={{ margin: "4.5px" }}></div>
 
 const PostExpanded = ({ post, todaysDate }) => {
+    const audioPlayer = useRef();
+
+    const AudioAndPartOfSpeech = ({ isLargeDevice }) => {
+        return (
+            <div className='soundDiv'>
+                <audio preload="auto" ref={audioPlayer} src={post.pronunciation} />
+                {
+                    post.pronunciation != false &&
+                    <IconButton style={{ padding: 0, marginRight: "6px" }} onClick={() => audioPlayer.current.play()}>
+                        <VolumeUpIcon sx={{ color: isLargeDevice ? "#0071f0" : "white" }} />
+                    </IconButton>
+                }
+                <h2>{post.partOfSpeech}</h2>
+            </div>
+        )
+    }
+
     const ArtBy = () => (
         <h4>art by:&nbsp;&nbsp;&nbsp;&nbsp;
             <a className='artistName' target="_blank" rel="noopener noreferrer" href={post.artistLink}>{post.artistName}</a>
@@ -27,13 +46,13 @@ const PostExpanded = ({ post, todaysDate }) => {
                         <div className="largeDevicesInnerContainer3">
                             <div className="largeDevicesDescription">
                                 <h1>{post.word}</h1>
-                                <h2>{`(${post.pronunciation}) ${post.partOfSpeech}`}</h2>
+                                <AudioAndPartOfSpeech isLargeDevice />
                                 <h3>{post.definition}</h3>
                             </div>
                             <div className="largeDevicesOtherInfo">
                                 <div className="largeDevicesOtherInfoInnerContainer">
                                     <Likes post={post} leftAlign />
-                                    <MoreOptions post={post} />
+                                    {!todaysDate && <MoreOptions post={post} />}
                                 </div>
                                 <ArtBy />
                                 <PostBy />
@@ -52,7 +71,7 @@ const PostExpanded = ({ post, todaysDate }) => {
                 <div className="smallDevicesInnerContainer">
                     <div className="smallDevicesDescription">
                         <h1>{post.word}</h1>
-                        <h2>{`(${post.pronunciation}) ${post.partOfSpeech}`}</h2>
+                        <AudioAndPartOfSpeech />
                         <div className="thinLine" />
                         <h3>{post.definition}</h3>
                     </div>

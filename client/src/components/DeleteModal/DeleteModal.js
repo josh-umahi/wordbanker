@@ -1,11 +1,12 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useDispatch } from 'react-redux';
 
 import { deletePost } from '../../actions/posts';
 
@@ -13,9 +14,10 @@ const redColorStyle = { color: "red" }
 
 const DeleteModal = ({ postWord, postId, deletePostModalIsOpen, closeDeleteModal }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleDelete = () => {
-        dispatch(deletePost(postId))
+        dispatch(deletePost(postId, navigate))
         closeDeleteModal()
     };
 

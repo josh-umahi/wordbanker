@@ -17,8 +17,7 @@ const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModa
     }, [editPostModalIsOpen, currentPostData])
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         dispatch(
             updatePost(currentPostData._id, {
                 ...postData,
