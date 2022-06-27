@@ -1,3 +1,8 @@
+.largeDevicesDescription h3,
+.smallDevicesDescription h3 {
+  line-height: 130%;
+}
+
 .postExpandedContainer .soundDiv {
   display: flex;
   align-items: center;

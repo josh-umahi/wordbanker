@@ -13,27 +13,34 @@ const initialState = { email: '', password: '', confirmPassword: '' };
 const Auth = () => {
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorOnSubmit, setErrorOnSubmit] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
 
-  const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const switchMode = () => {
+    setErrorOnSubmit(false)
     setForm(initialState);
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isSignup) {
-      dispatch(signup(form, navigate));
+      if (form.password === form.confirmPassword) {
+        await dispatch(signup(form, navigate));
+      }
     } else {
-      dispatch(signin(form, navigate));
+      await dispatch(signin(form, navigate));
     }
+
+    // If our code reaches this line, it means an error was caught in one of the above functions
+    setErrorOnSubmit(true)
   };
 
   const handleChange = (e) => {
@@ -48,11 +55,10 @@ const Auth = () => {
         </Avatar>
         <Typography component="h1" variant="h5">{isSignup ? 'Sign up' : 'Sign in'}</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Input name="email" inputValue={form.email} label="Email Address" handleChange={handleChange} type="email" />
-            <Input name="password" inputValue={form.password} label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-            {isSignup && <Input inputValue={form.confirmPassword} name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
-          </Grid>
+          <Input name="email" inputValue={form.email} label="Email Address" handleChange={handleChange} type="email" />
+          <Input name="password" inputValue={form.password} label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+          {isSignup && <Input inputValue={form.confirmPassword} name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
+          {errorOnSubmit && <Typography variant="button" className={classes.errorText}>** Error in Entry</Typography>}
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>

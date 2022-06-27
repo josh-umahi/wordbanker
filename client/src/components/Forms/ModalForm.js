@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./styles";
+import initialPostData from "./constants";
 
 const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubmit, clear, isCreate }) => {
   const [errorOnSubmit, setErrorOnSubmit] = useState(false);
@@ -20,7 +21,7 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
     e.preventDefault();
 
     // Loose equality used here to catch empty and whitespace-filled strings
-    const postDataIsEmpty = Object.values(postData).some((elem) => elem == false)
+    const postDataIsEmpty = Object.keys(initialPostData).some((key) => postData[key] == false)
 
     if (postDataIsEmpty) {
       setErrorOnSubmit(true)

@@ -1,3 +1,14 @@
+.postsContainer h3 {
+  line-height: 130%;
+}
+
+.postsContainer h5 {
+  text-transform: uppercase;
+  font-family: "Nunito", "Open Sans", sans-serif;
+  font-weight: bold;
+  font-style: italic;
+}
+
 .postsContainer {
   width: 100%;
   display: flex;
