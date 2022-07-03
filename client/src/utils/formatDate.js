@@ -1,6 +1,6 @@
 
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+    "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 const toOrdinalSuffix = (numb) => {
     const theInt = parseInt(numb),
