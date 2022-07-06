@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div>
+      <div style={{minHeight: "calc(100vh - 152px)"}}>
         <Navbar />
         <Routes>
           <Route path="/" exact element={<Navigate to="/posts" />} />
@@ -22,8 +22,8 @@ const App = () => {
           <Route path="/posts/:id" exact element={<PostDetails />} />
           <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/posts" />} />
         </Routes>
-        <Footer />
       </div>
+      <Footer />
     </BrowserRouter>
   )
 }

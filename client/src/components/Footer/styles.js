@@ -2,16 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
     container: {
+        height: "152px",
         backgroundColor: "black",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2em",
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
+        padding: "0 1em",
 
         "& p": {
             color: "white",

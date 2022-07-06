@@ -102,7 +102,7 @@ const Navbar = ({ window }) => {
       <CreatePostModalForm createPostModalIsOpen={createPostModalIsOpen} closeCreateModal={closeCreateModal} />
       <AppBar component="nav" style={{ backgroundColor: "white" }} position='sticky'>
         <Toolbar className={classes.toolbar}>
-          <Link to="/">
+          <Link href="/">
             <img className={classes.logo} src={logo} alt="" />
           </Link>
 
