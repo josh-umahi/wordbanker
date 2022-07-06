@@ -6,7 +6,6 @@ import { createPost } from '../../actions/posts';
 import ModalForm from "./ModalForm";
 import initialPostData from "./constants";
 import { useAppContext } from "../../context/AppContext";
-import formatLink from "../../utils/formatLink";
 
 const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
     const [postData, setPostData] = useState(initialPostData);
@@ -18,7 +17,6 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
         dispatch(
             createPost({
                 ...postData,
-                artistLink: formatLink(postData.artistLink),
                 username: user?.result?.username
             }, navigate)
         )

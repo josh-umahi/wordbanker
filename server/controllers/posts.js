@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import PostWobArt from '../models/postWobArt.js';
 import getPronunciation from '../utils/getPronunciation.js';
+import formatLink from '../utils/formatLink.js';
 
 const router = express.Router();
 
@@ -53,7 +54,13 @@ export const createPost = async (req, res) => {
 
     const pronunciationLink = await getPronunciation(post.word)
 
-    const newPostWobArt = new PostWobArt({ ...post, pronunciation: pronunciationLink, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostWobArt = new PostWobArt({
+        ...post,
+        artistLink: formatLink(post.artistLink),
+        pronunciation: pronunciationLink,
+        creator: req.userId,
+        createdAt: new Date().toISOString()
+    })
 
     try {
         await newPostWobArt.save();
@@ -70,7 +77,11 @@ export const updatePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { ...post, _id: id };
+    const updatedPost = { 
+        ...post, 
+        artistLink: formatLink(post.artistLink),
+        _id: id 
+    };
 
     await PostWobArt.findByIdAndUpdate(id, updatedPost, { new: true });
 

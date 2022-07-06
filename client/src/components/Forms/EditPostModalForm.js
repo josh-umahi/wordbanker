@@ -3,13 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import { updatePost } from '../../actions/posts';
 import { useAppContext } from "../../context/AppContext";
-import formatLink from "../../utils/formatLink";
 import initialPostData from "./constants";
 import ModalForm from "./ModalForm";
 
 const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModal }) => {
     const [postData, setPostData] = useState(currentPostData);
-    const { user } = useAppContext()
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,13 +16,7 @@ const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModa
 
 
     const handleSubmit = () => {
-        dispatch(
-            updatePost(currentPostData._id, {
-                ...postData,
-                artistLink: formatLink(postData.artistLink),
-                username: user?.result?.username
-            })
-        )
+        dispatch(updatePost(currentPostData._id, { ...postData }))
         closeEditModal()
     }
 
