@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './routes/Home/Home';
 import Auth from './routes/Auth/Auth';
 import PostDetails from './routes/PostDetails/PostDetails';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const { user } = useAppContext()
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/posts/:id" exact element={<PostDetails />} />
           <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/posts" />} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   )
