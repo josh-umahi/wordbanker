@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -13,8 +13,11 @@ import {
 import useStyles from "./styles";
 import initialPostData from "./constants";
 
+const imageFileRegex = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i
+
 const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubmit, clear, isCreate }) => {
   const [errorOnSubmit, setErrorOnSubmit] = useState(false);
+  const imageNameRef = useRef(null);
   const classes = useStyles();
 
   const submitForm = (e) => {
@@ -26,6 +29,7 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
     if (postDataIsEmpty) {
       setErrorOnSubmit(true)
     } else {
+      imageNameRef.current.innerHTML = ""
       handleSubmit()
     }
   }
@@ -33,7 +37,9 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
   const handleChangeFile = async (e) => {
     const file = e.target.files[0]
 
-    if (file) {
+    if (file && imageFileRegex.test(file.name)) {
+      imageNameRef.current.innerHTML = file.name
+
       let reader = new FileReader();
       reader.readAsDataURL(file)
       reader.onload = () => {
@@ -41,6 +47,8 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
         setPostData({ ...postData, selectedFile: base64 })
       }
     } else {
+      imageNameRef.current.innerHTML = ""
+
       setPostData({ ...postData, selectedFile: "" })
     }
   }
@@ -60,12 +68,15 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
           <TextField name="definition" variant="outlined" label="Definition" fullWidth multiline minRows={3} value={postData.definition} onChange={(e) => setPostData({ ...postData, definition: e.target.value })} />
           <TextField name="artistName" variant="outlined" label="Artist's Name" fullWidth value={postData.artistName} onChange={(e) => setPostData({ ...postData, artistName: e.target.value })} />
           <TextField name="artistLink" variant="outlined" label="Artist's Website" fullWidth value={postData.artistLink} onChange={(e) => setPostData({ ...postData, artistLink: e.target.value })} />
-          <label htmlFor="button-file-uploader" className={classes.fileInput}>
-            <Input id="button-file-uploader" style={{ display: "none" }} type="file" multiple={false} accept="image/*" onChange={handleChangeFile} />
-            <Button variant="outlined" component="span">
-              {postData.selectedFile == false ? "Upload Image" : "Replace Image"}
-            </Button>
-          </label>
+          <div className={classes.fileInputDiv}>
+            <label htmlFor="button-file-uploader" className={classes.fileInput}>
+              <Input id="button-file-uploader" style={{ display: "none" }} type="file" multiple={false} accept="image/*" onChange={handleChangeFile} />
+              <Button variant="outlined" component="span">
+                {postData.selectedFile == false ? "Upload Image" : "Replace Image"}
+              </Button>
+            </label>
+            <label ref={imageNameRef} />
+          </div>
           {errorOnSubmit && <Typography variant="button" className={classes.errorText}>** Please fill the form and upload an image</Typography>}
           <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
           <Button variant="contained" color="secondary" size="small" fullWidth onClick={clear}>Clear</Button>

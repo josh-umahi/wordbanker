@@ -27,9 +27,13 @@ export default makeStyles(theme => ({
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
+    fileInputDiv: {
+        display: "flex",
+        alignItems: 'center',
+        width: "100%"
+    },
     fileInput: {
-        width: '97%',
-        margin: '10px 0',
+        margin: '10px 6px 10px 0',
     },
     buttonSubmit: {
         margin: "10px 0",
