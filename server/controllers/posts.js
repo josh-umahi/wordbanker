@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 import PostWobArt from '../models/postWobArt.js';
 import getPronunciation from '../utils/getPronunciation.js';
@@ -7,6 +8,7 @@ import formatLink from '../utils/formatLink.js';
 import getShuffledArray from '../utils/shuffleArray.js';
 import recommendedPostIds from '../constants/recommendedPostIds.js';
 
+dotenv.config()
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
@@ -70,7 +72,8 @@ export const createPost = async (req, res) => {
         ...post,
         artistLink: formatLink(post.artistLink),
         pronunciation: pronunciationLink,
-        creator: req.userId,
+        // creator: req.userId,
+        creator: process.env.AUTOMATION_USER_ID,
         createdAt: new Date().toISOString()
     })
 

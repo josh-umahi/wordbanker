@@ -17,7 +17,8 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
         dispatch(
             createPost({
                 ...postData,
-                username: user?.result?.username
+                // username: user?.result?.username
+                username: process.env.REACT_APP_AUTOMATION_USERNAME
             }, navigate)
         )
         clear()

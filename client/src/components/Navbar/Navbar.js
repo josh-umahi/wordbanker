@@ -24,7 +24,8 @@ const Navbar = ({ window }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserIsLoggedIn(user !== null)
+    // setUserIsLoggedIn(user !== null)
+    setUserIsLoggedIn(true)
   }, [user])
 
   useEffect(() => {

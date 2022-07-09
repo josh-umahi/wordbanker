@@ -4,6 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 const auth = async (req, res, next) => {
+  if (!(req.headers.authorization)) {
+    next();
+    return;
+  }
+
   try {
     const token = req.headers.authorization.split(" ")[1];
 
