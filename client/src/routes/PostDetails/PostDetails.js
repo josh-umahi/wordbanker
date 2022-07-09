@@ -24,14 +24,18 @@ const PostDetails = () => {
 
     return isLoading
         ? <CircularProgress /> : (
-            <div>
+            <div className={classes.container}>
                 <PostExpanded post={post} />
-                <Typography>More Words</Typography>
-                {posts && posts.map(post =>
-                    <button key={post._id} onClick={() => openPost(post._id)}>
-                        <Typography >{post.word}</Typography>
-                    </button>
-                )}
+                <div className={classes.moreWordsDiv}>
+                    <Typography className={classes.moreWordsTitle}>More Words</Typography>
+                    <div className={classes.wordButtonsDiv}>
+                        {posts.map(post =>
+                            <button className={classes.wordButton} key={post._id} onClick={() => openPost(post._id)}>
+                                <Typography className={classes.wordTypography}>{post.word}</Typography>
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
         )
 }
