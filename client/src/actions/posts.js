@@ -6,9 +6,10 @@ export const getPost = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
 
-        const { data } = await api.fetchPost(id);
+        const { data: { data } } = await api.fetchPost(id);
 
-        dispatch({ type: FETCH_POST, payload: { post: data } });
+        dispatch({ type: FETCH_POST, payload: { post: data.post, posts: data.recommendedPosts } });
+        dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
     }
@@ -39,16 +40,16 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 };
 
 export const createPost = (post, navigate) => async (dispatch) => {
-  try {
-    dispatch({ type: START_LOADING });
-    const { data } = await api.createPost(post);
+    try {
+        dispatch({ type: START_LOADING });
+        const { data } = await api.createPost(post);
 
-    dispatch({ type: CREATE, payload: data });
+        dispatch({ type: CREATE, payload: data });
 
-    navigate(`/posts/${data._id}`);
-  } catch (error) {
-    console.log(error);
-  }
+        navigate(`/posts/${data._id}`);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const updatePost = (id, post) => async (dispatch) => {

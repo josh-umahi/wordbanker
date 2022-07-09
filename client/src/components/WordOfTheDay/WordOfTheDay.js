@@ -16,9 +16,9 @@ const WordOfTheDay = () => {
     useEffect(() => {
         const dayOfMonth = todaysDate.getDate();
         const postIdIndex = dayOfMonth - 1
-        const postIds = wotdPostIds[postIdIndex]
+        const postId = wotdPostIds[postIdIndex]
 
-        dispatch(getPost(postIds));
+        dispatch(getPost(postId));
     }, [])
 
     return (

@@ -18,14 +18,22 @@ const PostDetails = () => {
         dispatch(getPost(id));
     }, [id]);
 
-    return !posts.length ? <CircularProgress /> : (
-        <div>
-            <PostExpanded post={post} />
-            <Typography gutterBottom variant="h5">More Words</Typography>
-            <Typography gutterBottom variant="h5">affluent</Typography>
-            <Typography gutterBottom variant="h5">quintessential</Typography>
-        </div>
-    )
+    const openPost = (id) => {
+        navigate(`/posts/${id}`);
+    };
+
+    return isLoading
+        ? <CircularProgress /> : (
+            <div>
+                <PostExpanded post={post} />
+                <Typography>More Words</Typography>
+                {posts && posts.map(post =>
+                    <button key={post._id} onClick={() => openPost(post._id)}>
+                        <Typography >{post.word}</Typography>
+                    </button>
+                )}
+            </div>
+        )
 }
 
 export default PostDetails

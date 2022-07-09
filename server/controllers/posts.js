@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import PostWobArt from '../models/postWobArt.js';
 import getPronunciation from '../utils/getPronunciation.js';
 import formatLink from '../utils/formatLink.js';
+import getShuffledArray from '../utils/shuffleArray.js';
+import recommendedPostIds from '../constants/recommendedPostIds.js';
 
 const router = express.Router();
 
@@ -39,12 +41,22 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPost = async (req, res) => {
     const { id } = req.params;
+    const postIds = getShuffledArray(id, recommendedPostIds, 5)
 
     try {
         const post = await PostWobArt.findById(id);
+        const recommendedPosts = await PostWobArt.find(
+            {
+                "_id": {
+                    "$in": postIds
+                }
+            },
+            { word: 1 }
+        );
 
-        res.status(200).json(post);
+        res.status(200).json({ data: { post, recommendedPosts } });
     } catch (error) {
+        console.log(error);
         res.status(404).json({ message: error.message });
     }
 }
@@ -77,10 +89,10 @@ export const updatePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { 
-        ...post, 
+    const updatedPost = {
+        ...post,
         artistLink: formatLink(post.artistLink),
-        _id: id 
+        _id: id
     };
 
     await PostWobArt.findByIdAndUpdate(id, updatedPost, { new: true });
