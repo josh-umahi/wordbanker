@@ -8,6 +8,14 @@
   align-items: center;
 }
 
+.postExpandedContainer .largeDevicesContainer .soundDiv {
+  justify-content: flex-start;
+}
+
+.postExpandedContainer .smallDevicesContainer .soundDiv {
+  justify-content: center;
+}
+
 .postExpandedContainer .thinLine {
   background-color: white;
   margin: 1em auto;
@@ -175,7 +183,6 @@
 .smallDevicesContainer h2,
 .smallDevicesContainer h3,
 .smallDevicesContainer h4 {
-  margin: 0 auto;
   padding: 0;
   text-align: center;
   word-break: break-word;
