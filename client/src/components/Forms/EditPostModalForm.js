@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 
 import { updatePost } from '../../actions/posts';
-import { useAppContext } from "../../context/AppContext";
 import initialPostData from "./constants";
 import ModalForm from "./ModalForm";
 

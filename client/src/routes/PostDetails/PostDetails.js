@@ -16,7 +16,7 @@ const PostDetails = () => {
 
     useEffect(() => {
         dispatch(getPost(id));
-    }, [id]);
+    }, [id, dispatch]);
 
     const openPost = (id) => {
         navigate(`/posts/${id}`);
