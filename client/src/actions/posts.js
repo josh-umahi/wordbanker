@@ -4,12 +4,19 @@ import * as api from '../api/index.js';
 
 export const getPost = (id) => async (dispatch) => {
     try {
-        dispatch({ type: START_LOADING });
-
         const { data: { data } } = await api.fetchPost(id);
 
-        dispatch({ type: FETCH_POST, payload: { post: data.post, posts: data.recommendedPosts } });
-        dispatch({ type: END_LOADING });
+        dispatch({ type: FETCH_POST, payload: { post: data.post, recommendedPosts: data.recommendedPosts } });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getWordOfTheDayPost = (id) => async (dispatch) => {
+    try {
+        const { data: { data } } = await api.fetchPost(id);
+
+        dispatch({ type: FETCH_POST, payload: { wordOfTheDayPost: data.post } });
     } catch (error) {
         console.log(error);
     }
@@ -41,7 +48,6 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (post, navigate) => async (dispatch) => {
     try {
-        dispatch({ type: START_LOADING });
         const { data } = await api.createPost(post);
 
         dispatch({ type: CREATE, payload: data });

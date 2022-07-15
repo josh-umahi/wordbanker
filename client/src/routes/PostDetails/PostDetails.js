@@ -8,7 +8,7 @@ import useStyles from './styles';
 import PostExpanded from '../../components/PostExpanded/PostExpanded';
 
 const PostDetails = () => {
-    const { post, posts, isLoading } = useSelector((state) => state.posts);
+    const { post, recommendedPosts } = useSelector((state) => state.posts);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
@@ -22,6 +22,7 @@ const PostDetails = () => {
         navigate(`/posts/${id}`);
     };
 
+    const isLoading = post ? false : true
     return isLoading
         ? <CircularProgress /> : (
             <div className={classes.container}>
@@ -29,7 +30,7 @@ const PostDetails = () => {
                 <div className={classes.moreWordsDiv}>
                     <Typography className={classes.moreWordsTitle}>More Words</Typography>
                     <div className={classes.wordButtonsDiv}>
-                        {posts.map(post =>
+                        {recommendedPosts.map(post =>
                             <button className={classes.wordButton} key={post._id} onClick={() => openPost(post._id)}>
                                 <Typography className={classes.wordTypography}>{post.word}</Typography>
                             </button>

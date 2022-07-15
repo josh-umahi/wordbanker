@@ -5,10 +5,10 @@ import { CircularProgress } from '@material-ui/core';
 import PostExpanded from '../PostExpanded/PostExpanded';
 import formatDate from '../../utils/formatDate';
 import wotdPostIds from '../../constants/wotdPostIds';
-import { getPost } from '../../actions/posts';
+import { getWordOfTheDayPost } from '../../actions/posts';
 
 const WordOfTheDay = () => {
-    const { post } = useSelector(state => state.posts)
+    const { wordOfTheDayPost } = useSelector(state => state.posts)
     const dispatch = useDispatch();
     const todaysDate = new Date()
     const todaysDateFormatted = formatDate(todaysDate)
@@ -18,11 +18,12 @@ const WordOfTheDay = () => {
         const postIdIndex = dayOfMonth - 1
         const postId = wotdPostIds[postIdIndex]
 
-        dispatch(getPost(postId));
+        dispatch(getWordOfTheDayPost(postId));
     }, [])
 
+    const isLoading = wordOfTheDayPost ? false : true
     return (
-        post ? <PostExpanded post={post} todaysDate={todaysDateFormatted} /> : <CircularProgress />
+        isLoading ? <CircularProgress /> : <PostExpanded post={wordOfTheDayPost} todaysDate={todaysDateFormatted} />
     )
 }
 
