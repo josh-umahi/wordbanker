@@ -1,22 +1,26 @@
 import React from 'react'
-import { CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 
 import Post from './Post'
+
+const arrayOf1To6 = [1, 2, 3, 4, 5, 6]
 
 const Posts = () => {
     const { posts, isLoading } = useSelector(state => state.posts)
 
-    // TODO: There are currently no “B” words. Check back later!
-    if (!posts.length && !isLoading) return 'No posts';
-
     return (
-        isLoading ? <CircularProgress /> :
-            <div className="postsContainer">
-                {posts?.map((post) => (
+        <div className="postsContainer">
+            {
+                isLoading ? arrayOf1To6.map((_, index) =>
+                    <div key={index} className="postContainer">
+                        <Skeleton variant="rectangular" height="400px" />
+                    </div>
+                ) : posts.map(post =>
                     <Post key={post._id} post={post} />
-                ))}
-            </div>
+                )
+            }
+        </div>
     )
 }
 

@@ -39,6 +39,9 @@ export default makeStyles((theme) => ({
             cursor: "pointer",
         },
     },
+    wordButtonSkeleton: {
+        margin: "0 1em 0.5em",
+    },
     wordTypography: {
         color: "#8C8E90",
         fontFamily: "'Avenir', 'Nunito', 'sans-serif'",

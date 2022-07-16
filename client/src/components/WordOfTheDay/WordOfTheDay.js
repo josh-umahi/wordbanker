@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
 
 import PostExpanded from '../PostExpanded/PostExpanded';
 import formatDate from '../../utils/formatDate';
@@ -21,9 +20,8 @@ const WordOfTheDay = () => {
         dispatch(getWordOfTheDayPost(postId));
     }, [])
 
-    const isLoading = wordOfTheDayPost ? false : true
     return (
-        isLoading ? <CircularProgress /> : <PostExpanded post={wordOfTheDayPost} todaysDate={todaysDateFormatted} />
+        <PostExpanded post={wordOfTheDayPost} todaysDate={todaysDateFormatted} />
     )
 }
 
