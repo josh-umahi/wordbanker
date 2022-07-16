@@ -14,7 +14,7 @@ export const getPost = (id) => async (dispatch) => {
 
 export const getWordOfTheDayPost = (id) => async (dispatch) => {
     try {
-        const { data: { data } } = await api.fetchPost(id);
+        const { data: { data } } = await api.fetchPost(id, true);
 
         dispatch({ type: FETCH_POST, payload: { wordOfTheDayPost: data.post } });
     } catch (error) {

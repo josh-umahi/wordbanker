@@ -41,18 +41,23 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPost = async (req, res) => {
     const { id } = req.params;
-    const postIds = getShuffledArray(id, recommendedPostIds, 5)
+    const { isWotd } = req.query;
 
     try {
         const post = await PostWobArt.findById(id);
-        const recommendedPosts = await PostWobArt.find(
-            {
-                "_id": {
-                    "$in": postIds
-                }
-            },
-            { word: 1 }
-        );
+        let recommendedPosts;
+
+        if (isWotd !== "YES") {
+            const postIds = getShuffledArray(id, recommendedPostIds, 5)
+            recommendedPosts = await PostWobArt.find(
+                {
+                    "_id": {
+                        "$in": postIds
+                    }
+                },
+                { word: 1 }
+            );
+        }
 
         res.status(200).json({ data: { post, recommendedPosts } });
     } catch (error) {
