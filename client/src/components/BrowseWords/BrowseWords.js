@@ -6,21 +6,27 @@ import { usePostsListedContext } from '../../context/PostsListedContext'
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 const BrowseWords = () => {
-  const { handleSetSearch } = usePostsListedContext()
+  const { handleSetSearch, searchQuery } = usePostsListedContext()
 
-  // TODO: Clicking same button twice should remove the search term
-  // TODO: On each search page, use useQuery to check what letter we're looking at and give it classname clickedLetter
   const handleClick = (value) => {
-    handleSetSearch(value)
+    if (value === searchQuery) {
+      handleSetSearch('')
+    } else {
+      handleSetSearch(value)
+    }
   }
 
-  const AlphabetButtons = () => {
-    return alphabets.map(alphabet => (
-      <button key={alphabet} className="enabledAlphabet" onClick={() => handleClick(alphabet)}>
-        {alphabet}
-      </button>
-    ))
-  }
+  const AlphabetButtons = () => (
+    alphabets.map(alphabet => {
+      const classname = alphabet === searchQuery ? "enabledAlphabet clickedAlphabet" : "enabledAlphabet";
+
+      return (
+        <button key={alphabet} className={classname} onClick={() => handleClick(alphabet)}>
+          {alphabet}
+        </button>
+      )
+    })
+  )
 
   return (
     <div className="browseWordsContainer">
