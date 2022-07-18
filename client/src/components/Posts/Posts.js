@@ -14,7 +14,7 @@ const Posts = () => {
             {
                 isLoading ? arrayOf1To6.map((_, index) =>
                     <div key={index} className="postContainer">
-                        <Skeleton variant="rectangular" height="400px" />
+                        <Skeleton variant="rectangular" height="480px" />
                     </div>
                 ) : posts.map(post =>
                     <Post key={post._id} post={post} />

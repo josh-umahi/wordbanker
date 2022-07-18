@@ -17,8 +17,8 @@ const Home = () => {
                 <div className={classes.postsListing}>
                     <BrowseWords />
                     <Posts />
+                    <Paginator />
                 </div>
-                <Paginator />
             </PostsListedContextProvider>
         </div>
     )

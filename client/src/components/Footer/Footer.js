@@ -15,7 +15,7 @@ const Footer = () => {
             <div className={classes.innerContainer}>
                 <p>&copy; 2022 The Wordbanker</p>
                 <div className={classes.divider} />
-                <p> Created by Joshua Umahi</p>
+                <p>Created by Joshua Umahi</p>
             </div>
         </div >
     )
