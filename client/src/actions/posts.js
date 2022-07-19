@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST, CLEAR_POST_DETAILS } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -11,6 +11,10 @@ export const getPost = (id) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const clearPostDetails = () => async (dispatch) => {
+    dispatch({ type: CLEAR_POST_DETAILS })
+}
 
 export const getWordOfTheDayPost = (id) => async (dispatch) => {
     try {

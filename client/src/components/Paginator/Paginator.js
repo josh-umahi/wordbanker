@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import usePagination from '@mui/material/usePagination/usePagination';
+import { Box } from '@mui/material';
 
 import "./styles.css"
 import { getPosts } from '../../actions/posts';
 import { usePostsListedContext } from '../../context/PostsListedContext';
-import { Box } from '@mui/material';
 
 const Paginator = ({ scrollToBrowseWords }) => {
     const { numberOfPages } = useSelector((state) => state.posts);

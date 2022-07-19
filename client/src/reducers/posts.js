@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, FETCH_POST } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, FETCH_POST, CLEAR_POST_DETAILS } from '../constants/actionTypes';
 
 const postsReducer = (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
@@ -21,6 +21,12 @@ const postsReducer = (state = { isLoading: true, posts: [] }, action) => {
         wordOfTheDayPost: action.payload?.wordOfTheDayPost, 
         post: action.payload?.post, 
         recommendedPosts: action.payload?.recommendedPosts 
+      };
+    case CLEAR_POST_DETAILS:
+      return { 
+        ...state, 
+        post: null, 
+        recommendedPosts: null 
       };
     case LIKE:
       return { ...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)) };

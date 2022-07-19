@@ -18,7 +18,7 @@ const Home = () => {
             <WordOfTheDay />
             <PostsListedContextProvider>
                 <div className={classes.postsListing}>
-                    <BrowseWords refToBrowseWords={refToBrowseWords} />
+                    <BrowseWords refToBrowseWords={refToBrowseWords} scrollToBrowseWords={scrollToBrowseWords} />
                     <Posts />
                     <Paginator scrollToBrowseWords={scrollToBrowseWords} />
                 </div>

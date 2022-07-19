@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { Skeleton } from '@mui/material';
 
-import { getPost } from '../../actions/posts';
+import { getPost, clearPostDetails } from '../../actions/posts';
 import useStyles from './styles';
 import PostExpanded from '../../components/PostExpanded/PostExpanded';
 
@@ -22,6 +22,7 @@ const PostDetails = () => {
     }, [id, dispatch]);
 
     const openPost = (id) => {
+        dispatch(clearPostDetails())
         navigate(`/posts/${id}`);
     };
 
