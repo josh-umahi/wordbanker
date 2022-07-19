@@ -8,7 +8,7 @@ import { getPosts } from '../../actions/posts';
 import { usePostsListedContext } from '../../context/PostsListedContext';
 import { Box } from '@mui/material';
 
-const Paginator = () => {
+const Paginator = ({ scrollToBrowseWords }) => {
     const { numberOfPages } = useSelector((state) => state.posts);
     const { searchQuery, page } = usePostsListedContext()
     const { items } = usePagination({ count: numberOfPages });
@@ -24,10 +24,15 @@ const Paginator = () => {
     const nextButtonItem = items[items.length - 1]
     const selectedItem = items.find(item => item.selected)
 
+    const handleClick = (buttonItem) => {
+        buttonItem.onClick()
+        scrollToBrowseWords()
+    }
+
     return !searchQuery && (
         <div className="paginatorDiv">
             <Box component={Link} to={`/posts?page=${backButtonItem.page}`}>
-                <button {...backButtonItem}>&lt; BACK</button>
+                <button {...backButtonItem} onClick={() => handleClick(backButtonItem)}>&lt; BACK</button>
             </Box>
             <div className="paginatorDivMainContainer">
                 <h4>Page:</h4>
@@ -37,7 +42,7 @@ const Paginator = () => {
                 <h4>of {numberOfPages ?? "..."}</h4>
             </div>
             <Box component={Link} to={`/posts?page=${nextButtonItem.page}`}>
-                <button {...nextButtonItem}>NEXT &gt;</button>
+                <button {...nextButtonItem} onClick={() => handleClick(nextButtonItem)}>NEXT &gt;</button>
             </Box>
         </div>
     )

@@ -5,7 +5,7 @@ import { usePostsListedContext } from '../../context/PostsListedContext'
 
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-const BrowseWords = () => {
+const BrowseWords = ({ refToBrowseWords }) => {
   const { handleSetSearch, searchQuery } = usePostsListedContext()
 
   const handleClick = (value) => {
@@ -30,7 +30,7 @@ const BrowseWords = () => {
 
   return (
     <div className="browseWordsContainer">
-      <div className="browseWordsInnerContainer">
+      <div className="browseWordsInnerContainer" ref={refToBrowseWords}>
         <h2>Browse English Words</h2>
         <div className="alphabetButtonsContainer">
           <AlphabetButtons />
