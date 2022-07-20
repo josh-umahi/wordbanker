@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 import "./styles.css"
 import { usePostsListedContext } from '../../context/PostsListedContext'
@@ -6,6 +7,7 @@ import { usePostsListedContext } from '../../context/PostsListedContext'
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 const BrowseWords = ({ refToBrowseWords }) => {
+  const { isLoading } = useSelector((state) => state.posts);
   const { handleSetSearch, searchQuery } = usePostsListedContext()
 
   const handleClick = (value) => {
@@ -21,7 +23,7 @@ const BrowseWords = ({ refToBrowseWords }) => {
       const classname = alphabet === searchQuery ? "enabledAlphabet clickedAlphabet" : "enabledAlphabet";
 
       return (
-        <button key={alphabet} className={classname} onClick={() => handleClick(alphabet)}>
+        <button key={alphabet} disabled={isLoading} className={classname} onClick={() => handleClick(alphabet)}>
           {alphabet}
         </button>
       )

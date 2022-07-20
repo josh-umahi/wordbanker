@@ -57,7 +57,7 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
     <Dialog
       open={open}
       onClose={onClose}
-      classes={{ paper: classes.dialogWrapper }}
+      classes={{ root: classes.dialogWrapperRoot, paper: classes.dialogWrapper }}
     >
       <DialogTitle>{formTitle}</DialogTitle>
       <Divider />
