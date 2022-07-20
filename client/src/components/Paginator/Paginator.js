@@ -1,32 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import usePagination from '@mui/material/usePagination/usePagination';
+import { useSelector } from 'react-redux';
+import usePagination from '@mui/material/usePagination/';
 import { Box } from '@mui/material';
 
 import "./styles.css"
-import { getPosts } from '../../actions/posts';
 import { usePostsListedContext } from '../../context/PostsListedContext';
 
 const Paginator = ({ scrollToBrowseWords }) => {
-    const { numberOfPages } = useSelector((state) => state.posts);
+    const { numberOfPages, isLoading } = useSelector((state) => state.posts);
     const { searchQuery, page } = usePostsListedContext()
-    const { items } = usePagination({ count: numberOfPages });
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (page) {
-            dispatch(getPosts(page));
-        }
-    }, [dispatch, page]);
-
-    const backButtonItem = items[0]
-    const nextButtonItem = items[items.length - 1]
-    const selectedItem = items.find(item => item.selected)
+    const pageAsNumber = Number(page)
+    const { items } = usePagination({ count: numberOfPages, page: pageAsNumber });
 
     const handleClick = (buttonItem) => {
         buttonItem.onClick()
         scrollToBrowseWords()
+    }
+
+    const backButtonItem = items[0]
+    const nextButtonItem = items[items.length - 1]
+
+    if (isLoading) {
+        backButtonItem.disabled = true;
+        nextButtonItem.disabled = true;
     }
 
     return !searchQuery && (
@@ -37,7 +34,7 @@ const Paginator = ({ scrollToBrowseWords }) => {
             <div className="paginatorDivMainContainer">
                 <h4>Page:</h4>
                 <div className="pageNumber">
-                    <h4>{selectedItem.page}</h4>
+                    <h4>{pageAsNumber}</h4>
                 </div>
                 <h4>of {numberOfPages ?? "..."}</h4>
             </div>

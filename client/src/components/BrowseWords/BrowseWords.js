@@ -5,14 +5,12 @@ import { usePostsListedContext } from '../../context/PostsListedContext'
 
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-const BrowseWords = ({ refToBrowseWords, scrollToBrowseWords }) => {
+const BrowseWords = ({ refToBrowseWords }) => {
   const { handleSetSearch, searchQuery } = usePostsListedContext()
 
   const handleClick = (value) => {
-    scrollToBrowseWords()
-
     if (value === searchQuery) {
-      handleSetSearch('')
+      handleSetSearch(null)
     } else {
       handleSetSearch(value)
     }

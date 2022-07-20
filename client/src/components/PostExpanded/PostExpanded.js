@@ -18,7 +18,7 @@ const PostExpanded = ({ post, todaysDate }) => {
             <div className='soundDiv'>
                 <audio preload="auto" ref={audioPlayer} src={post.pronunciation} />
                 {
-                    post.pronunciation.length > 0 &&
+                    post.pronunciation &&
                     <IconButton style={{ padding: 0, marginRight: "6px" }} onClick={() => audioPlayer.current.play()}>
                         <VolumeUpIcon sx={{ color: isLargeDevice ? "#0071f0" : "white" }} />
                     </IconButton>

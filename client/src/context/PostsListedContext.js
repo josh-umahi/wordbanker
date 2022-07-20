@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { getPostsBySearch } from '../actions/posts';
-import useDidMountEffect from "../hooks/useDidMountEffect";
+import { getPosts, getPostsBySearch } from '../actions/posts';
 
 export const PostsListedContext = createContext(null);
 export const usePostsListedContext = () => useContext(PostsListedContext);
@@ -13,29 +12,34 @@ const useQuery = () => {
 }
 
 export const PostsListedContextProvider = ({ children }) => {
-    const [search, setSearch] = useState('A');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const query = useQuery();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
+    const [search, setSearch] = useState(searchQuery);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    useDidMountEffect(() => {
-        searchPost()
-    }, [search])
+    useEffect(() => {
+        if (search) {
+            loadPostsBySearch()
+        } else {
+            loadPostsByPage()
+        }
+    }, [search, page, dispatch])
 
     const handleSetSearch = (value) => {
         setSearch(value)
     }
 
-    const searchPost = () => {
-        if (search.trim()) {
-            dispatch(getPostsBySearch({ search }));
-            navigate(`/posts/search?searchQuery=${search || 'none'}`);
-        } else {
-            navigate('/');
-        }
+    const loadPostsBySearch = () => {
+        dispatch(getPostsBySearch({ search }));
+        navigate(`/posts/search?searchQuery=${search || 'none'}`);
     };
+
+    const loadPostsByPage = () => {
+        dispatch(getPosts(page));
+        navigate(`/posts?page=${page}`);
+    }
 
     return (
         <PostsListedContext.Provider

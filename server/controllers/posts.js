@@ -31,7 +31,7 @@ export const getPostsBySearch = async (req, res) => {
     try {
         const word = new RegExp("^" + searchQuery, "i");
 
-        const posts = await PostWobArt.find({ word });
+        const posts = await PostWobArt.find({ word }).sort( { word: 1 } );
 
         res.json({ data: posts });
     } catch (error) {
