@@ -30,7 +30,8 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
       setErrorOnSubmit(true)
     } else {
       imageNameRef.current.innerHTML = ""
-      handleSubmit()
+      const trimmedPostData = getTrimmedPostData()
+      handleSubmit(trimmedPostData)
     }
   }
 
@@ -51,6 +52,23 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
 
       setPostData({ ...postData, selectedFile: "" })
     }
+  }
+
+  const getTrimmedPostData = () => {
+    const trimmedPostData = {}
+
+    for (var key in postData) {
+      const value = postData[key]
+
+      if (typeof value === 'string' && key !== "selectedFile") {
+        trimmedPostData[key] = value.trim();
+        console.log(trimmedPostData[key]);
+      } else {
+        trimmedPostData[key] = value
+      }
+    }
+
+    return trimmedPostData
   }
 
   return (
