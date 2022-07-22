@@ -18,7 +18,7 @@ const Likes = ({ post, leftAlign }) => {
     const postId = post._id
     const userId = user?.result?._id;
 
-    const hasLikedPost = () => post.likes.find((like) => like === userId);
+    const hasLikedPost = likes.find((like) => like === userId);
 
     const LikesIcon = () => {
         if (likes.length > 0) {
@@ -36,13 +36,13 @@ const Likes = ({ post, leftAlign }) => {
         if (user === null) {
             navigate('/auth')
         } else {
-            dispatch(likePost(postId))
-
-            if (hasLikedPost()) {
-                setLikes(post.likes.filter((id) => id !== userId));
+            if (hasLikedPost) {
+                setLikes(likes.filter((id) => id !== userId));
             } else {
-                setLikes([...post.likes, userId]);
+                setLikes([...likes, userId]);
             }
+            
+            dispatch(likePost(postId))
         }
     }
 

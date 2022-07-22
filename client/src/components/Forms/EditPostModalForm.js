@@ -14,8 +14,8 @@ const EditPostModalForm = ({ currentPostData, editPostModalIsOpen, closeEditModa
     }, [editPostModalIsOpen, currentPostData])
 
 
-    const handleSubmit = () => {
-        dispatch(updatePost(currentPostData._id, { ...postData }))
+    const handleSubmit = (trimmedPostData) => {
+        dispatch(updatePost(currentPostData._id, { ...trimmedPostData }))
         closeEditModal()
     }
 

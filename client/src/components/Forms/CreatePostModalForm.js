@@ -13,10 +13,10 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (trimmedPostData) => {
         dispatch(
             createPost({
-                ...postData,
+                ...trimmedPostData,
                 // username: user?.result?.username
                 username: process.env.REACT_APP_AUTOMATION_USERNAME
             }, navigate)

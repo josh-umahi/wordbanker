@@ -7,6 +7,7 @@ import getPronunciation from '../utils/getPronunciation.js';
 import formatLink from '../utils/formatLink.js';
 import getShuffledArray from '../utils/shuffleArray.js';
 import recommendedPostIds from '../constants/recommendedPostIds.js';
+import notifyMe, { NOTIFYME_CREATE, NOTIFYME_EDIT } from '../utils/notifyMe.js';
 
 dotenv.config()
 const router = express.Router();
@@ -33,7 +34,7 @@ export const getPostsBySearch = async (req, res) => {
     try {
         const word = new RegExp("^" + searchQuery, "i");
 
-        const posts = await PostWobArt.find({ word });
+        const posts = await PostWobArt.find({ word }).sort({ word: 1 });
 
         res.json({ data: posts });
     } catch (error) {
@@ -43,18 +44,23 @@ export const getPostsBySearch = async (req, res) => {
 
 export const getPost = async (req, res) => {
     const { id } = req.params;
-    const postIds = getShuffledArray(id, recommendedPostIds, 5)
+    const { isWotd } = req.query;
 
     try {
         const post = await PostWobArt.findById(id);
-        const recommendedPosts = await PostWobArt.find(
-            {
-                "_id": {
-                    "$in": postIds
-                }
-            },
-            { word: 1 }
-        );
+        let recommendedPosts;
+
+        if (isWotd !== "YES") {
+            const postIds = getShuffledArray(id, recommendedPostIds, 5)
+            recommendedPosts = await PostWobArt.find(
+                {
+                    "_id": {
+                        "$in": postIds
+                    }
+                },
+                { word: 1 }
+            );
+        }
 
         res.status(200).json({ data: { post, recommendedPosts } });
     } catch (error) {
@@ -79,6 +85,7 @@ export const createPost = async (req, res) => {
 
     try {
         await newPostWobArt.save();
+        notifyMe(newPostWobArt, NOTIFYME_CREATE)
 
         res.status(201).json(newPostWobArt);
     } catch (error) {
@@ -98,9 +105,14 @@ export const updatePost = async (req, res) => {
         _id: id
     };
 
-    await PostWobArt.findByIdAndUpdate(id, updatedPost, { new: true });
+    try {
+        await PostWobArt.findByIdAndUpdate(id, updatedPost, { new: true });
+        notifyMe(updatedPost, NOTIFYME_EDIT)
 
-    res.json(updatedPost);
+        res.json(updatedPost);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
 }
 
 export const deletePost = async (req, res) => {
@@ -108,9 +120,12 @@ export const deletePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    await PostWobArt.findByIdAndRemove(id);
-
-    res.json({ message: "Post deleted successfully." });
+    try {
+        await PostWobArt.findByIdAndRemove(id);
+        res.json({ message: "Post deleted successfully." });
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
 }
 
 export const likePost = async (req, res) => {
@@ -122,19 +137,23 @@ export const likePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const post = await PostWobArt.findById(id);
+    try {
+        const post = await PostWobArt.findById(id);
 
-    const index = post.likes.findIndex((id) => id === String(req.userId));
+        const index = post.likes.findIndex((id) => id === String(req.userId));
 
-    if (index === -1) {
-        post.likes.push(req.userId);
-    } else {
-        post.likes = post.likes.filter((id) => id !== String(req.userId));
+        if (index === -1) {
+            post.likes.push(req.userId);
+        } else {
+            post.likes = post.likes.filter((id) => id !== String(req.userId));
+        }
+
+        const updatedPost = await PostWobArt.findByIdAndUpdate(id, post, { new: true });
+
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
     }
-
-    const updatedPost = await PostWobArt.findByIdAndUpdate(id, post, { new: true });
-
-    res.status(200).json(updatedPost);
 }
 
 export default router; 

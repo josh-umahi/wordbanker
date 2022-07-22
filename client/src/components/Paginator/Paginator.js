@@ -1,41 +1,48 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Paper } from '@material-ui/core';
-import { Pagination, PaginationItem } from '@material-ui/lab';
+import { useSelector } from 'react-redux';
+import usePagination from '@mui/material/usePagination/';
+import { Box } from '@mui/material';
 
-import useStyles from './styles';
-import { getPosts } from '../../actions/posts';
+import "./styles.css"
 import { usePostsListedContext } from '../../context/PostsListedContext';
 
-const Paginator = () => {
-    const { numberOfPages } = useSelector((state) => state.posts);
+const Paginator = ({ scrollToBrowseWords }) => {
+    const { numberOfPages, isLoading } = useSelector((state) => state.posts);
     const { searchQuery, page } = usePostsListedContext()
-    const dispatch = useDispatch();
-    const classes = useStyles();
+    const pageAsNumber = Number(page)
+    const { items } = usePagination({ count: numberOfPages, page: pageAsNumber });
 
-    useEffect(() => {
-        if (page) {
-            dispatch(getPosts(page));
-        }
-    }, [dispatch, page]);
+    const handleClick = (buttonItem) => {
+        buttonItem.onClick()
+        scrollToBrowseWords()
+    }
+
+    const backButtonItem = items[0]
+    const nextButtonItem = items[items.length - 1]
+
+    if (isLoading) {
+        backButtonItem.disabled = true;
+        nextButtonItem.disabled = true;
+    }
 
     return !searchQuery && (
-        <Paper className={classes.paginator} elevation={2}>
-            <Pagination
-                classes={{ ul: classes.ul }}
-                size="small"
-                count={numberOfPages}
-                page={Number(page) || 1}
-                variant="outlined"
-                color="primary"
-                renderItem={(item) => (
-                    <PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
-                )}
-            />
-        </Paper>
-    );
+        <div className="paginatorDiv">
+            <Box component={Link} to={`/posts?page=${backButtonItem.page}`}>
+                <button {...backButtonItem} onClick={() => handleClick(backButtonItem)}>&lt; BACK</button>
+            </Box>
+            <div className="paginatorDivMainContainer">
+                <h4>Page:</h4>
+                <div className="pageNumber">
+                    <h4>{pageAsNumber}</h4>
+                </div>
+                <h4>of {numberOfPages ?? "..."}</h4>
+            </div>
+            <Box component={Link} to={`/posts?page=${nextButtonItem.page}`}>
+                <button {...nextButtonItem} onClick={() => handleClick(nextButtonItem)}>NEXT &gt;</button>
+            </Box>
+        </div>
+    )
 };
 
 export default Paginator;

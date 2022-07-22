@@ -14,7 +14,7 @@ const PageNotFound = () => {
       <Typography color='inherit' className={classes.lastText}>
         The page you are looking for may have been removed or does not exist
       </Typography>
-      <Link href="/">
+      <Link href="/" underline='none'>
         <Button className={classes.button} variant="contained" size="medium">go to homepage</Button>
       </Link>
     </div>

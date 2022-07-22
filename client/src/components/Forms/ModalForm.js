@@ -30,7 +30,8 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
       setErrorOnSubmit(true)
     } else {
       imageNameRef.current.innerHTML = ""
-      handleSubmit()
+      const trimmedPostData = getTrimmedPostData()
+      handleSubmit(trimmedPostData)
     }
   }
 
@@ -53,11 +54,28 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
     }
   }
 
+  const getTrimmedPostData = () => {
+    const trimmedPostData = {}
+
+    for (var key in postData) {
+      const value = postData[key]
+
+      if (typeof value === 'string' && key !== "selectedFile") {
+        trimmedPostData[key] = value.trim();
+      } else {
+        trimmedPostData[key] = value
+      }
+    }
+
+    return trimmedPostData
+  }
+
   return (
     <Dialog
+      disableScrollLock
       open={open}
       onClose={onClose}
-      classes={{ paper: classes.dialogWrapper }}
+      classes={{ root: classes.dialogWrapperRoot, paper: classes.dialogWrapper }}
     >
       <DialogTitle>{formTitle}</DialogTitle>
       <Divider />
