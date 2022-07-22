@@ -62,7 +62,6 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
 
       if (typeof value === 'string' && key !== "selectedFile") {
         trimmedPostData[key] = value.trim();
-        console.log(trimmedPostData[key]);
       } else {
         trimmedPostData[key] = value
       }
@@ -73,6 +72,7 @@ const ModalForm = ({ formTitle, open, onClose, postData, setPostData, handleSubm
 
   return (
     <Dialog
+      disableScrollLock
       open={open}
       onClose={onClose}
       classes={{ root: classes.dialogWrapperRoot, paper: classes.dialogWrapper }}

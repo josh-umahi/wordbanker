@@ -32,6 +32,7 @@ const notifyMe = async (wobPost, typeOfNotifyMe) => {
                     <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe"
                         style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;"
                         data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
+                        <p>Dear ${process.env.SENDGRID_EMAIL_RECEIVER_FIRSTNAME}, see the wob post information down below</p>
                         <h3>Word: <strong>${word}</strong></h3>
                         <h3>Pronunciation: <a href=${pronunciation}>Link to Pronunciation</a></h3>
                         <audio preload="auto" src=${pronunciation}></audio>
@@ -60,14 +61,14 @@ const notifyMe = async (wobPost, typeOfNotifyMe) => {
         `
     }
 
-    await sendEmail(msg)
+    await sendEmail(msg, subject)
 }
 
-const sendEmail = async (msg) => {
+const sendEmail = async (msg, subject) => {
     sgMail
         .send(msg)
         .then(() => {
-            console.log('Email sent')
+            console.log('Email sent: ' + subject)
         })
         .catch((error) => {
             console.error(error.response.body)
