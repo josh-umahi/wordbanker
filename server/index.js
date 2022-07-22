@@ -17,6 +17,10 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use("/user", userRoutes);
 
+app.get("/", (req, res) => {
+    res.send("APP IS RUNNING")
+})
+
 const CONNECTION_URL = `mongodb+srv://${process.env.CONNECTION_URL_USERNAME}:${process.env.CONNECTION_URL_PASSWORD}@cluster0.vlpsr4k.mongodb.net/?retryWrites=true&w=majority`
 const PORT = process.env.PORT || 4000;
 
