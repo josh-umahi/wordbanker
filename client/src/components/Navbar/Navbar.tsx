@@ -4,20 +4,24 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, Toolbar, Typography } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu';
 import decode from 'jwt-decode';
-
-import logo from "../../assets/logo.svg"
+import {getLocalStorageProfile} from "../../utils/localStorage";
+import logo from "../../assets/logo.svg" 
 import useStyles from './styles';
 import CreatePostModalForm from '../Forms/CreatePostModalForm';
 import * as actionType from '../../constants/actionTypes';
 import { useAppContext } from '../../context/AppContext';
 
+type NavbarProps = {
+  window?: Window;
+}
+
 const Spacer = <div style={{ margin: "0.45em" }} />
 
-const Navbar = ({ window }) => {
+const Navbar: React.FC<NavbarProps> = ({ window }) => {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
   const [createPostModalIsOpen, setCreatePostModalIsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, handleSetUser } = useAppContext()
+  const { user, handleSetUser } = useAppContext()! || {}; // Use an empty object here because context can be null
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -31,12 +35,12 @@ const Navbar = ({ window }) => {
     const token = user?.token;
 
     if (token) {
-      const decodedToken = decode(token);
+      const decodedToken = decode(token) as unknown as {[x:string]: any};
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
-    handleSetUser(JSON.parse(localStorage.getItem('profile')));
+    handleSetUser(getLocalStorageProfile());
   }, [location]);
 
   const logout = () => {
@@ -72,7 +76,7 @@ const Navbar = ({ window }) => {
   )
 
   const drawer = (
-    <div onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <div onClick={handleDrawerToggle} style={{ textAlign: 'center' }}>
       {
         userIsLoggedIn ?
           <List>
@@ -95,7 +99,7 @@ const Navbar = ({ window }) => {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window.document.body : undefined;
 
   return (
     <div>

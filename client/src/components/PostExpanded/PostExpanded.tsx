@@ -7,19 +7,28 @@ import placeholderImage from '../../assets/placeholder_image.png'
 import "./styles.css"
 import Likes from '../Likes/Likes';
 import MoreOptions from '../MoreOptions/MoreOptions';
+import { Post } from '../../../types/Post';
 
 const spacing = <div style={{ margin: "4.5px" }}></div>
 
-const PostExpanded = ({ post, todaysDate }) => {
-    const audioPlayer = useRef();
+type PostExpandedProps = {
+    post: Post;
+    todaysDate: string;
+}
 
-    const AudioAndPartOfSpeech = ({ isLargeDevice }) => {
+type AudioAndPartOfSpeechProps = {
+    isLargeDevice?: boolean;
+}
+const PostExpanded:React.FC<PostExpandedProps>  = ({ post, todaysDate }) => {
+    const audioPlayer = useRef<HTMLAudioElement>(null);
+
+    const AudioAndPartOfSpeech: React.FC<AudioAndPartOfSpeechProps> = ({ isLargeDevice }) => {
         return (
             <div className='soundDiv'>
                 <audio preload="auto" ref={audioPlayer} src={post.pronunciation} />
                 {
                     post.pronunciation &&
-                    <IconButton style={{ padding: 0, marginRight: "6px" }} onClick={() => audioPlayer.current.play()}>
+                    <IconButton style={{ padding: 0, marginRight: "6px" }} onClick={() => audioPlayer.current!.play()}>
                         <VolumeUpIcon sx={{ color: isLargeDevice ? "#0071f0" : "white" }} />
                     </IconButton>
                 }

@@ -12,7 +12,16 @@ import { deletePost } from '../../actions/posts';
 
 const redColorStyle = { color: "red" }
 
-const DeleteModal = ({ postWord, postId, deletePostModalIsOpen, closeDeleteModal }) => {
+
+type Props = {
+    postWord: string,
+    postId: string,
+    deletePostModalIsOpen: boolean,
+    closeDeleteModal: () => void
+
+}
+
+const DeleteModal: React.FC<Props> = ({ postWord, postId, deletePostModalIsOpen, closeDeleteModal }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

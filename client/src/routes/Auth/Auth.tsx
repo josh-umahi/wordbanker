@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
@@ -27,8 +27,8 @@ const Auth = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
-
-  const handleSubmit = async (e) => {
+// const handleSubmit = async (e: any) 
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (isSignup) {
@@ -42,9 +42,10 @@ const Auth = () => {
     // If our code reaches this line, it means an error was caught in one of the above functions
     setErrorOnSubmit(true)
   };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+//const handleChange = (e: React.FormEvent<EventTarget>)
+  const handleChange = (e: React.FormEvent<EventTarget>) => {
+    let target = e.target as HTMLInputElement;
+    setForm({ ...form, [target.name]: target.value });
   }
 
   return (

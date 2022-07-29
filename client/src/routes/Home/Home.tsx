@@ -10,8 +10,8 @@ import { PostsListedContextProvider } from '../../context/PostsListedContext';
 
 const Home = () => {
     const classes = useStyles();
-    const refToBrowseWords = useRef(null)
-    const scrollToBrowseWords = () => scroll.scrollTo(refToBrowseWords.current?.offsetTop - 20);
+    const refToBrowseWords = useRef<any>(null)
+    const scrollToBrowseWords = () => scroll.scrollTo(refToBrowseWords.current!.offsetTop - 20);
 
     return (
         <div className={classes.outer}>

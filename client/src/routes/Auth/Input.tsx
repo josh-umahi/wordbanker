@@ -4,7 +4,19 @@ import { TextField, InputAdornment, IconButton } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const Input = ({ name, inputValue, handleChange, label, half, autoFocus, type, handleShowPassword }) => (
+
+type Props = {
+  name?: string;
+  inputValue?: string;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  half?: boolean;
+  type?: string;
+  handleShowPassword?: () => void;
+  autoFocus?: boolean;
+
+}
+const Input: React.FC<Props> = ({ name, inputValue, handleChange, label, half, autoFocus, type, handleShowPassword }) => (
     <TextField
       style={{
         marginBottom: "14px"
@@ -26,7 +38,7 @@ const Input = ({ name, inputValue, handleChange, label, half, autoFocus, type, h
             </IconButton>
           </InputAdornment>
         ),
-      } : null}
+      } : undefined}
     />
 );
 
