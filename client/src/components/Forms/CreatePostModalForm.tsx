@@ -6,14 +6,19 @@ import { createPost } from '../../actions/posts';
 import ModalForm from "./ModalForm";
 import initialPostData from "./constants";
 import { useAppContext } from "../../context/AppContext";
+import { Post } from "../../../types/Post";
 
-const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
+type Props = {
+    createPostModalIsOpen: boolean,
+    closeCreateModal: () => void
+}
+const CreatePostModalForm: React.FC<Props> = ({ createPostModalIsOpen, closeCreateModal }) => {
     const [postData, setPostData] = useState(initialPostData);
-    const { user } = useAppContext()
+    const { user } = useAppContext()! || {};
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const handleSubmit = (trimmedPostData) => {
+// Partial types are types where all the properties are optional
+    const handleSubmit = (trimmedPostData: Partial<Post>) => {
         dispatch(
             createPost({
                 ...trimmedPostData,
@@ -24,7 +29,7 @@ const CreatePostModalForm = ({ createPostModalIsOpen, closeCreateModal }) => {
         closeCreateModal()
     }
 
-    const handleSetPostData = (value) => {
+    const handleSetPostData = (value: Post) => {
         setPostData(value)
     }
 

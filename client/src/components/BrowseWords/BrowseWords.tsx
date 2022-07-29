@@ -5,12 +5,20 @@ import "./styles.css"
 import { usePostsListedContext } from '../../context/PostsListedContext'
 
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+type GlobalState = {
+  posts: { numberOfPages: number; isLoading: boolean };
+  [x: string]: any;
+};
 
-const BrowseWords = ({ refToBrowseWords }) => {
-  const { isLoading } = useSelector((state) => state.posts);
-  const { handleSetSearch, searchQuery } = usePostsListedContext()
+type Props ={
+  refToBrowseWords: React.RefObject<HTMLDivElement>
+  scrollToBrowseWords: () => void
+}
+const BrowseWords: React.FC<Props> = ({ refToBrowseWords }) => {
+  const { isLoading } = useSelector<GlobalState>((state) => state.posts) as GlobalState["posts"];
+  const { handleSetSearch, searchQuery } = usePostsListedContext()! || {};
 
-  const handleClick = (value) => {
+  const handleClick = (value: string) => {
     if (value === searchQuery) {
       handleSetSearch(null)
     } else {
@@ -35,7 +43,7 @@ const BrowseWords = ({ refToBrowseWords }) => {
       <div className="browseWordsInnerContainer" ref={refToBrowseWords}>
         <h2>Browse English Words</h2>
         <div className="alphabetButtonsContainer">
-          <AlphabetButtons />
+          {AlphabetButtons()}
         </div>
       </div>
     </div>

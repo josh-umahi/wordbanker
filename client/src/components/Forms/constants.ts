@@ -1,4 +1,6 @@
-const initialPostData = {
+import { Post } from "../../../types/Post"
+
+const initialPostData: Post = {
     word: '',
     partOfSpeech: '',
     definition: '',
