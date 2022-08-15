@@ -1,6 +1,6 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH, FETCH_POST, CLEAR_POST_DETAILS } from '../constants/actionTypes';
 
-const postsReducer = (state = { isLoading: true, posts: [] }, action) => {
+const postsReducer = (state = { isLoading: true, posts: [] }, action: any) => {
   switch (action.type) {
     case 'START_LOADING':
       return { ...state, isLoading: true, posts: [] };

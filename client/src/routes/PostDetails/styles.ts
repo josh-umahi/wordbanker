@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     wordTypography: {
         color: "#8C8E90",
         fontFamily: "'Avenir', 'Nunito', 'sans-serif'",
-        fontWeight: "400",
+        fontWeight: 400,
         fontSize: "18px"
     },
 }));

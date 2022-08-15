@@ -1,36 +1,41 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import "./styles.css"
+import "./styles.css";
+import { Post } from "../../../types/Post";
 
-const Post = ({ post }) => {
-    const navigate = useNavigate();
+type PostProps = {
+  post: Post;
+};
 
-    const openPost = (e) => {
-        e.preventDefault();
+const PostComponent: React.FC<PostProps> = ({ post }) => {
+  const navigate = useNavigate();
 
-        navigate(`/posts/${post._id}`);
-    };
+  const openPost = (e: any) => {
+    e.preventDefault();
 
-    return (
-        <button className="postContainer" onClick={openPost}>
-            <div className="postInnerContainer">
-                <div className="postInnerContainer2">
-                    <div className="postInnerContainer3">
-                        <div className="postDescription">
-                            <h1>{post.word}</h1>
-                            <div className="thinLineDivider" />
-                            <h3>{post.definition}</h3>
-                        </div>
-                        <div className="postOtherInfo">
-                            <h5>View in Detail</h5>
-                        </div>
-                    </div>
-                </div>
+    navigate(`/posts/${post._id}`);
+  };
+
+  return (
+    <button className="postContainer" onClick={openPost}>
+      <div className="postInnerContainer">
+        <div className="postInnerContainer2">
+          <div className="postInnerContainer3">
+            <div className="postDescription">
+              <h1>{post.word}</h1>
+              <div className="thinLineDivider" />
+              <h3>{post.definition}</h3>
             </div>
-            <img className="postImage" src={post.selectedFile} alt="" />
-        </button>
-    )
-}
+            <div className="postOtherInfo">
+              <h5>View in Detail</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img className="postImage" src={post.selectedFile} alt="" />
+    </button>
+  );
+};
 
-export default Post
+export default PostComponent;

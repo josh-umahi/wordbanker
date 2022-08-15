@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
     container: {
         margin: "150px 2em",
         display: "flex",
@@ -13,7 +13,7 @@ export default makeStyles(() => ({
     firstText: {
         fontFamily: "'Avenir', 'Nunito', 'sans-serif'",
         fontSize: "100px",
-        fontWeight: "600",
+        fontWeight: 600,
         background: "-webkit-linear-gradient(#000, #0071f0)",
         "-webkit-background-clip": "text",
         "-webkit-text-fill-color": "transparent",
@@ -21,7 +21,7 @@ export default makeStyles(() => ({
     middleText: {
         fontFamily: "'Avenir', 'Nunito', 'sans-serif'",
         fontSize: "23px",
-        fontWeight: "600",
+        fontWeight: 600,
         textTransform: "uppercase"
     },
     lastText: {

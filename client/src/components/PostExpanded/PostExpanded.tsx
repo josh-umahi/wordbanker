@@ -13,7 +13,7 @@ const spacing = <div style={{ margin: "4.5px" }}></div>
 
 type PostExpandedProps = {
     post: Post;
-    todaysDate: string;
+    todaysDate?: string;
 }
 
 type AudioAndPartOfSpeechProps = {

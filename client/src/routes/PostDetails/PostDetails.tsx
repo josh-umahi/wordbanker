@@ -7,11 +7,12 @@ import { Skeleton } from '@mui/material';
 import { getPost, clearPostDetails } from '../../actions/posts';
 import useStyles from './styles';
 import PostExpanded from '../../components/PostExpanded/PostExpanded';
+import { RootState } from '../../reducers';
 
 const arrayOf1To5 = [1, 2, 3, 4, 5]
 
 const PostDetails = () => {
-    const { post, recommendedPosts } = useSelector((state) => state.posts);
+    const { post, recommendedPosts } = useSelector((state: RootState) => state.posts) as any;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
@@ -21,7 +22,7 @@ const PostDetails = () => {
         dispatch(getPost(id));
     }, [id, dispatch]);
 
-    const openPost = (id) => {
+    const openPost = (id: any) => {
         dispatch(clearPostDetails())
         navigate(`/posts/${id}`);
     };
@@ -33,7 +34,7 @@ const PostDetails = () => {
                 <Typography className={classes.moreWordsTitle}>More Words</Typography>
                 <div className={classes.wordButtonsDiv}>
                     {
-                        recommendedPosts ? recommendedPosts.map(post =>
+                        recommendedPosts ? recommendedPosts.map((post: any) =>
                             <button className={classes.wordButton} key={post._id} onClick={() => openPost(post._id)}>
                                 <Typography className={classes.wordTypography}>{post.word}</Typography>
                             </button>
