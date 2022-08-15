@@ -5,9 +5,15 @@ import PostExpanded from '../PostExpanded/PostExpanded';
 import formatDate from '../../utils/formatDate';
 import wotdPostIds from '../../constants/wotdPostIds';
 import { getWordOfTheDayPost } from '../../actions/posts';
+import { Post } from '../../../types/Post';
 
+type GlobalState = {
+    posts: Post[] & {wordOfTheDayPost: Post}
+    [x:string]: any
+}
 const WordOfTheDay = () => {
-    const { wordOfTheDayPost } = useSelector(state => state.posts)
+    // TODO: This is a hack. Refactor typings.
+    const { wordOfTheDayPost } = useSelector<GlobalState>(state => state.posts) as GlobalState["posts"]
     const dispatch = useDispatch();
     const todaysDate = new Date()
     const todaysDateFormatted = formatDate(todaysDate)
