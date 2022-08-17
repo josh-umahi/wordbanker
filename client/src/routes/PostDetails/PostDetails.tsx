@@ -1,49 +1,74 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
-import { Skeleton } from '@mui/material';
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import { Skeleton } from "@mui/material";
 
-import { getPost, clearPostDetails } from '../../actions/posts';
-import useStyles from './styles';
-import PostExpanded from '../../components/PostExpanded/PostExpanded';
-import { RootState } from '../../reducers';
+import useStyles from "./styles";
+import { getPost } from "../../actions/posts";
+import PostExpanded from "../../components/PostExpanded/PostExpanded";
 
-const arrayOf1To5 = [1, 2, 3, 4, 5]
+const arrayOf1To5 = [1, 2, 3, 4, 5];
 
 const PostDetails = () => {
-    const { post, recommendedPosts } = useSelector((state: RootState) => state.posts) as any;
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const classes = useStyles();
-    const { id } = useParams();
+  const classes = useStyles();
+  const { id } = useParams();
+  const [postId, setPostId] = useState(id);
 
-    useEffect(() => {
-        dispatch(getPost(id));
-    }, [id, dispatch]);
+  /*
+   * - Why is the stale time set to Infinity for "postDetails?
+   * Our server side is configured to return a new randomized list
+   * of recommendedPosts on every getPost request. This means that
+   * if our staleTime is left at 0 there will be stale data left in the
+   * recommendedPosts every time we toggle amongst different words in
+   * the "More Words" section. This caused a glitchy double-change in
+   * the view giving users an unpleasant experience.
+   */
+  const { data, isLoading } = useQuery(
+    ["postDetails", postId],
+    () => getPost(postId!),
+    { staleTime: Infinity }
+  );
 
-    const openPost = (id: any) => {
-        dispatch(clearPostDetails())
-        navigate(`/posts/${id}`);
-    };
+  let post, recommendedPosts;
+  if (data) {
+    post = data.post;
+    recommendedPosts = data.recommendedPosts;
+  } else {
+    post = null;
+    recommendedPosts = null;
+  }
 
-    return (
-        <div className={classes.container}>
-            <PostExpanded post={post} />
-            <div className={classes.moreWordsDiv}>
-                <Typography className={classes.moreWordsTitle}>More Words</Typography>
-                <div className={classes.wordButtonsDiv}>
-                    {
-                        recommendedPosts ? recommendedPosts.map((post: any) =>
-                            <button className={classes.wordButton} key={post._id} onClick={() => openPost(post._id)}>
-                                <Typography className={classes.wordTypography}>{post.word}</Typography>
-                            </button>
-                        ) : arrayOf1To5.map((_, index) => <Skeleton key={index} className={classes.wordButtonSkeleton} width="135px" height="30px" />)
-                    }
-                </div>
-            </div>
+  return (
+    <div className={classes.container}>
+      <PostExpanded post={post} isLoading={isLoading} />
+      <div className={classes.moreWordsDiv}>
+        <Typography className={classes.moreWordsTitle}>More Words</Typography>
+        <div className={classes.wordButtonsDiv}>
+          {recommendedPosts
+            ? recommendedPosts.map((post: any) => (
+                <button
+                  className={classes.wordButton}
+                  key={post._id}
+                  onClick={() => setPostId(post._id)}
+                >
+                  <Typography className={classes.wordTypography}>
+                    {post.word}
+                  </Typography>
+                </button>
+              ))
+            : arrayOf1To5.map((_, index) => (
+                <Skeleton
+                  key={index}
+                  className={classes.wordButtonSkeleton}
+                  width="135px"
+                  height="30px"
+                />
+              ))}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default PostDetails
+export default PostDetails;

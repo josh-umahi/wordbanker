@@ -16,13 +16,13 @@ const Home = () => {
     return (
         <div className={classes.outer}>
             <WordOfTheDay />
-            <PostsListedContextProvider>
+            {/* <PostsListedContextProvider>
                 <div className={classes.postsListing}>
                     <BrowseWords refToBrowseWords={refToBrowseWords} scrollToBrowseWords={scrollToBrowseWords} />
                     <Posts />
                     <Paginator scrollToBrowseWords={scrollToBrowseWords} />
                 </div>
-            </PostsListedContextProvider>
+            </PostsListedContextProvider> */}
         </div>
     )
 }
