@@ -1,53 +1,50 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React from "react";
 
-import "./styles.css"
-import { usePostsListedContext } from '../../context/PostsListedContext'
+import "./styles.css";
+import { usePostsListedContext } from "../../context/PostsListedContext";
+import alphabets from "../../constants/alphabets";
 
-const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-type GlobalState = {
-  posts: { numberOfPages: number; isLoading: boolean };
-  [x: string]: any;
+type BrowseWordsProps = {
+  refToBrowseWords: React.RefObject<HTMLDivElement>;
 };
-
-type Props ={
-  refToBrowseWords: React.RefObject<HTMLDivElement>
-  scrollToBrowseWords: () => void
-}
-const BrowseWords: React.FC<Props> = ({ refToBrowseWords }) => {
-  const { isLoading } = useSelector<GlobalState>((state) => state.posts) as GlobalState["posts"];
-  const { handleSetSearch, searchQuery } = usePostsListedContext()! || {};
+const BrowseWords: React.FC<BrowseWordsProps> = ({ refToBrowseWords }) => {
+  const { handleSetSearch, search, isLoading } = usePostsListedContext()!;
 
   const handleClick = (value: string) => {
-    if (value === searchQuery) {
-      handleSetSearch(null)
+    if (value === search) {
+      handleSetSearch(null);
     } else {
-      handleSetSearch(value)
+      handleSetSearch(value);
     }
-  }
+  };
 
-  const AlphabetButtons = () => (
-    alphabets.map(alphabet => {
-      const classname = alphabet === searchQuery ? "enabledAlphabet clickedAlphabet" : "enabledAlphabet";
+  const AlphabetButtons = () =>
+    alphabets.map((alphabet) => {
+      const classname =
+        alphabet === search
+          ? "enabledAlphabet clickedAlphabet"
+          : "enabledAlphabet";
 
       return (
-        <button key={alphabet} disabled={isLoading} className={classname} onClick={() => handleClick(alphabet)}>
+        <button
+          key={alphabet}
+          disabled={isLoading}
+          className={classname}
+          onClick={() => handleClick(alphabet)}
+        >
           {alphabet}
         </button>
-      )
-    })
-  )
+      );
+    });
 
   return (
     <div className="browseWordsContainer">
       <div className="browseWordsInnerContainer" ref={refToBrowseWords}>
         <h2>Browse English Words</h2>
-        <div className="alphabetButtonsContainer">
-          {AlphabetButtons()}
-        </div>
+        <div className="alphabetButtonsContainer">{AlphabetButtons()}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BrowseWords
+export default BrowseWords;

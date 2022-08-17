@@ -2,66 +2,68 @@ import React, {
   createContext,
   PropsWithChildren,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
-import { getPosts, getPostsBySearch } from "../actions/posts";
+import { Post } from "../../types/Post";
+import { getPostsByPage, getPostsBySearch } from "../actions/posts";
 
 type PostsListedContextType = null | {
-  page: number | string;
-  searchQuery: string| null;
-  setPage?: (page: number) => void;
-  handleSetSearch: (value: string | null) => void;
+  posts: Post[] | null;
+  numberOfPages: number | undefined;
+  isLoading: boolean;
+  page: number;
   search: string | null;
+  handleSetPage: (page: number) => void;
+  handleSetSearch: (value: string | null) => void;
 };
+
 export const PostsListedContext = createContext<PostsListedContextType>(null);
 export const usePostsListedContext = () => useContext(PostsListedContext);
-
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search);
-};
 
 export const PostsListedContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const query = useQuery();
-  const page = query.get("page") || 1;
-  const searchQuery = query.get("searchQuery");
-  const [search, setSearch] = useState(searchQuery);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [page, setPage] = useState<number>(1);
+  const [search, setSearch] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (search) {
-      loadPostsBySearch();
-    } else {
-      loadPostsByPage();
-    }
-  }, [search, page, dispatch]);
+  const getPosts = async ({ queryKey }: any) => {
+    const [_, search, page] = queryKey;
 
-  const handleSetSearch = (value: string|null) => {
+    const data = search
+      ? await getPostsBySearch(search)
+      : await getPostsByPage(page);
+
+    return data;
+  };
+
+  const handleSetPage = (value: number) => {
+    setPage(value);
+  };
+
+  const handleSetSearch = (value: string | null) => {
     setSearch(value);
   };
 
-  const loadPostsBySearch = () => {
-    dispatch(getPostsBySearch({ search }));
-    navigate(`/posts/search?searchQuery=${search || "none"}`);
-  };
-
-  const loadPostsByPage = () => {
-    dispatch(getPosts(page));
-    navigate(`/posts?page=${page}`);
-  };
-
+  /*
+   * The third parameter is set to "search ? null : page" so that whenever a search query is
+   * passed in, the page parameter is assigned null to maintain consistency and enable us to
+   * take advantage of caching
+   */
+  const { data, isLoading } = useQuery(
+    ["postsListed", search, search ? null : page],
+    getPosts
+  );
   return (
     <PostsListedContext.Provider
       value={{
+        posts: data ? data.data : null,
+        numberOfPages: data ? data.numberOfPages : null,
+        isLoading,
         page,
-        searchQuery,
         search,
+        handleSetPage,
         handleSetSearch,
       }}
     >

@@ -1,35 +1,21 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import usePagination from "@mui/material/usePagination/";
-import { Box } from "@mui/material";
+import React from "react";
+import usePagination, { UsePaginationItem } from "@mui/material/usePagination/";
 
 import "./styles.css";
 import { usePostsListedContext } from "../../context/PostsListedContext";
 
-type Props = {
+type PaginatorProps = {
   scrollToBrowseWords: () => void;
 };
-type GlobalState = {
-  posts: { numberOfPages: number; isLoading: boolean };
-  [x: string]: any;
-};
-const Paginator: React.FC<Props> = ({ scrollToBrowseWords }) => {
-  const { numberOfPages, isLoading } = useSelector<GlobalState>(
-    (state) => state.posts
-  ) as GlobalState["posts"];
-  const { searchQuery, page } = usePostsListedContext()! || {};
+
+const Paginator: React.FC<PaginatorProps> = ({ scrollToBrowseWords }) => {
+  const { page, handleSetPage, numberOfPages, search, isLoading } =
+    usePostsListedContext()!;
   const pageAsNumber = Number(page);
   const { items } = usePagination({ count: numberOfPages, page: pageAsNumber });
 
-  const handleClick = (
-    buttonItem: DetailedHTMLProps<
-      HTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >
-  ) => {
-    // @ts-ignore
-    buttonItem.onClick();
+  const handleClick = (buttonItem: UsePaginationItem) => {
+    handleSetPage(buttonItem.page!);
     scrollToBrowseWords();
   };
 
@@ -41,34 +27,24 @@ const Paginator: React.FC<Props> = ({ scrollToBrowseWords }) => {
     nextButtonItem.disabled = true;
   }
 
-  if (!searchQuery) {
+  if (!search) {
     return (
       <div className="paginatorDiv">
-        <Box component={Link} to={`/posts?page=${backButtonItem.page}`}>
-          {/* @ts-ignore */}
-          <button
-            {...backButtonItem}
-            onClick={() => handleClick(backButtonItem)}
-          >
-            &lt; BACK
-          </button>
-        </Box>
+        {/* @ts-ignore */}
+        <button {...backButtonItem} onClick={() => handleClick(backButtonItem)}>
+          &lt; BACK
+        </button>
         <div className="paginatorDivMainContainer">
           <h4>Page:</h4>
           <div className="pageNumber">
             <h4>{pageAsNumber}</h4>
           </div>
-          <h4>of {numberOfPages ?? "..."}</h4>
+          <h4>of &hellip;</h4>
         </div>
-        <Box component={Link} to={`/posts?page=${nextButtonItem.page}`}>
-          {/* @ts-ignore */}
-          <button
-            {...nextButtonItem}
-            onClick={() => handleClick(nextButtonItem)}
-          >
-            NEXT &gt;
-          </button>
-        </Box>
+        {/* @ts-ignore */}
+        <button {...nextButtonItem} onClick={() => handleClick(nextButtonItem)}>
+          NEXT &gt;
+        </button>
       </div>
     );
   }
