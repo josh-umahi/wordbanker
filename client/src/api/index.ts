@@ -2,7 +2,7 @@ import axios from "axios";
 import { getLocalStorageProfile } from "../utils/localStorage";
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_BASEURL_DEVELOPMENT,
+  baseURL: process.env.REACT_APP_SERVER_BASEURL_PRODUCTION,
 });
 
 API.interceptors.request.use((req) => {
