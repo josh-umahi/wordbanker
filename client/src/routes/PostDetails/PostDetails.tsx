@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { Skeleton } from "@mui/material";
 
 import useStyles from "./styles";
 import { getPost } from "../../actions/posts";
 import PostExpanded from "../../components/PostExpanded/PostExpanded";
+import capitalizeSentence from "../../utils/capitalizeSentence";
 
 const arrayOf1To5 = [1, 2, 3, 4, 5];
 
 const PostDetails = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [postId, setPostId] = useState(id);
 
   /*
    * - Why is the stale time set to Infinity for "postDetails?
@@ -25,12 +26,12 @@ const PostDetails = () => {
    * the view giving users an unpleasant experience.
    */
   const { data, isLoading } = useQuery(
-    ["postDetails", postId],
-    () => getPost(postId!),
+    ["postDetails", id],
+    () => getPost(id!),
     { staleTime: Infinity }
   );
 
-  let post, recommendedPosts;
+  let post: any, recommendedPosts: any;
   if (data) {
     post = data.post;
     recommendedPosts = data.recommendedPosts;
@@ -38,6 +39,14 @@ const PostDetails = () => {
     post = null;
     recommendedPosts = null;
   }
+
+  useEffect(() => {
+    if (post) {
+      document.title = `Wordbanker - \"${capitalizeSentence(
+        post.word
+      )}\" Definition`;
+    }
+  }, [post]);
 
   return (
     <div className={classes.container}>
@@ -50,7 +59,7 @@ const PostDetails = () => {
                 <button
                   className={classes.wordButton}
                   key={post._id}
-                  onClick={() => setPostId(post._id)}
+                  onClick={() => navigate(`/posts/${post._id}`)}
                 >
                   <Typography className={classes.wordTypography}>
                     {post.word}

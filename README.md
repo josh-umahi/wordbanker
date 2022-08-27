@@ -5,7 +5,6 @@ My passion project converted into a full stack MERN app.
 To see a working demo, [Click here!](https://wordbanker.vercel.app/).
 
 <img src="https://raw.githubusercontent.com/josh-umahi/josh-umahi/master/.github/images/wordbanker_wotd.png"/>
-
 <br>
 
 ## The Wordbanker story
@@ -17,7 +16,6 @@ Over the last couple of years I developed a passion for reading books, and with 
 I created the Instagram page [@wordbanker](https://www.instagram.com/wordbanker/) as a way to combat this by creating a means to learn new vocabulary day by day in a fun visual way that "makes it stick". When working on side projects to satiate my other passion (web development), I decided to turn Wordbanker from just an Instagram page into an entire **social network where anyone can create an account and upload new words with beautiful illustrations and funny sentences to help others to "make it stick"**.
 
 *Now for the techy aspect:* 
-
 <br>
 
 ## How this web app was made
@@ -26,7 +24,6 @@ The app consists of three layers:
 1) Automation layer
 2) Client
 3) Server 
-
 <br>
 
 ### Automation layer
@@ -37,13 +34,11 @@ This layer was built using the package **selenium-webdriver** and a **chromedriv
 2) I also wrote Javascript code to populate the site with initial posts from a local file I created.
 
 I chose to hide the automation layer in a private repository because most of it is sensitive code and data that could be taken advantage of by malicious users. 
-
 <br>
 
 ### Client
 
 The client side was built using React and some useful dependencies, most notably **Redux** for state management. Also, much of this front-end layer was styled with **Material UI** and its makeStyles function to make the website aesthetically pleasing as well as fully responsive. I also implemented skeleton loading (AKA shimmer loading effect) to provide a better experience to users even during the loading phase.
-
 <br>
 
 ### Server
