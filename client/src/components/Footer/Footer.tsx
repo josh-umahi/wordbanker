@@ -13,7 +13,7 @@ const Footer = () => {
                 <img className={classes.logo} src={logo} alt="" />
             </Link>
             <div className={classes.innerContainer}>
-                <p>&copy; 2022 The Wordbanker</p>
+                <p>&copy; 2024 The Wordbanker</p>
                 <div className={classes.divider} />
                 <p>Created by Joshua Umahi</p>
             </div>
