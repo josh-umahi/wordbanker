@@ -1,18 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import { Typography } from "@material-ui/core";
-import { Skeleton } from "@mui/material";
-
-import useStyles from "./styles";
-import { getPost } from "../../actions/posts";
-import PostExpanded from "../../components/PostExpanded/PostExpanded";
-import capitalizeSentence from "../../utils/capitalizeSentence";
+import React, { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Typography } from '@mui/material';
+import { Skeleton } from '@mui/material';
+import { styled } from '@mui/system';
+import { getPost } from '../../actions/posts';
+import PostExpanded from '../../components/PostExpanded/PostExpanded';
+import capitalizeSentence from '../../utils/capitalizeSentence';
 
 const arrayOf1To5 = [1, 2, 3, 4, 5];
 
+const Container = styled('div')({
+  paddingTop: '1em',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+const MoreWordsDiv = styled('div')({
+  backgroundColor: 'white',
+  margin: '1.75em 0',
+  padding: '0 1em',
+  width: '80%',
+  borderTop: '1px solid black',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+const MoreWordsTitle = styled(Typography)({
+  paddingTop: '1.25em',
+  fontFamily: "'Times New Roman', serif",
+  fontWeight: 'bold',
+  fontSize: '16px',
+});
+
+const WordButtonsDiv = styled('div')({
+  width: '100%',
+  padding: '1.5em 0 1.5em',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  flexWrap: 'wrap',
+});
+
+const WordButton = styled('button')({
+  margin: '0 1em 0.5em',
+  '&:hover': {
+    textDecoration: 'underline',
+    textDecorationColor: '#8C8E90',
+    cursor: 'pointer',
+  },
+});
+
+const WordButtonSkeleton = styled(Skeleton)({
+  margin: '0 1em 0.5em',
+});
+
+const WordTypography = styled(Typography)({
+  color: '#8C8E90',
+  fontFamily: "'Avenir', 'Nunito', 'sans-serif'",
+  fontWeight: 400,
+  fontSize: '18px',
+});
+
 const PostDetails = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -26,7 +78,7 @@ const PostDetails = () => {
    * the view giving users an unpleasant experience.
    */
   const { data, isLoading } = useQuery(
-    ["postDetails", id],
+    ['postDetails', id],
     () => getPost(id!),
     { staleTime: Infinity }
   );
@@ -49,34 +101,26 @@ const PostDetails = () => {
   }, [post]);
 
   return (
-    <div className={classes.container}>
+    <Container>
       <PostExpanded post={post} isLoading={isLoading} />
-      <div className={classes.moreWordsDiv}>
-        <Typography className={classes.moreWordsTitle}>More Words</Typography>
-        <div className={classes.wordButtonsDiv}>
+      <MoreWordsDiv>
+        <MoreWordsTitle>More Words</MoreWordsTitle>
+        <WordButtonsDiv>
           {recommendedPosts
             ? recommendedPosts.map((post: any) => (
-                <button
-                  className={classes.wordButton}
+                <WordButton
                   key={post._id}
                   onClick={() => navigate(`/posts/${post._id}`)}
                 >
-                  <Typography className={classes.wordTypography}>
-                    {post.word}
-                  </Typography>
-                </button>
+                  <WordTypography>{post.word}</WordTypography>
+                </WordButton>
               ))
             : arrayOf1To5.map((_, index) => (
-                <Skeleton
-                  key={index}
-                  className={classes.wordButtonSkeleton}
-                  width="135px"
-                  height="30px"
-                />
+                <WordButtonSkeleton key={index} width='135px' height='30px' />
               ))}
-        </div>
-      </div>
-    </div>
+        </WordButtonsDiv>
+      </MoreWordsDiv>
+    </Container>
   );
 };
 

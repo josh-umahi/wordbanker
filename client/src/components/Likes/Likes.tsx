@@ -1,23 +1,43 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Button } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpAltOutlined from '@mui/icons-material/ThumbUpAltOutlined';
+import { styled } from '@mui/system';
 
-import useStyles from "./styles";
-import { likePost } from "../../actions/posts";
-import { useAppContext } from "../../context/AppContext";
-import { Post } from "../../../types/Post";
+import { likePost } from '../../actions/posts';
+import { useAppContext } from '../../context/AppContext';
+import { Post } from '../../../types/Post';
 
 type Props = {
-  post: Post ;
+  post: Post;
   leftAlign?: boolean;
 };
+
+const LikesContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
+const LikesButton = styled(Button)({
+  color: 'black',
+  padding: '0 1em 0 1px',
+  minHeight: 0,
+  minWidth: 0,
+  '&.MuiButtonBase-root': {
+    backgroundColor: 'transparent',
+  },
+});
+
+const LikesLabel = styled('h4')({
+  fontStyle: 'normal !important',
+});
+
 const Likes: React.FC<Props> = ({ post, leftAlign }) => {
   const [likes, setLikes] = useState(post.likes!);
   const { user } = useAppContext()! || {};
-  const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const postId = post._id;
@@ -28,20 +48,20 @@ const Likes: React.FC<Props> = ({ post, leftAlign }) => {
   const LikesIcon = () => {
     if (likes.length > 0) {
       return likes.find((like) => like === userId) ? (
-        <ThumbUpAltIcon color="inherit" fontSize="small" />
+        <ThumbUpAltIcon color='inherit' fontSize='small' />
       ) : (
-        <ThumbUpAltOutlined color="inherit" fontSize="small" />
+        <ThumbUpAltOutlined color='inherit' fontSize='small' />
       );
     }
 
-    return <ThumbUpAltOutlined color="inherit" fontSize="small" />;
+    return <ThumbUpAltOutlined color='inherit' fontSize='small' />;
   };
-  // TODO: Maybe type this??
-  const handleLike = (e: any) => {
+
+  const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (user === null) {
-      navigate("/auth");
+      navigate('/auth');
     } else {
       if (hasLikedPost) {
         setLikes(likes.filter((id) => id !== userId));
@@ -49,29 +69,23 @@ const Likes: React.FC<Props> = ({ post, leftAlign }) => {
         setLikes([...likes, userId]);
       }
 
-      dispatch(likePost(postId));
+      // dispatch(likePost(postId));
     }
   };
 
   return (
-    <div
-      className={classes.likesContainer}
+    <LikesContainer
       style={{
-        justifyContent: leftAlign ? "flex-start" : "center",
+        justifyContent: leftAlign ? 'flex-start' : 'center',
       }}
     >
-      <Button
-        className={classes.likesButton}
-        disableTouchRipple
-        size="small"
-        onClick={handleLike}
-      >
+      <LikesButton disableTouchRipple size='small' onClick={handleLike}>
         <LikesIcon />
-      </Button>
-      <h4 className={classes.likesLabel}>
-        {likes.length} {likes.length === 1 ? "Like" : "Likes"}
-      </h4>
-    </div>
+      </LikesButton>
+      <LikesLabel>
+        {likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
+      </LikesLabel>
+    </LikesContainer>
   );
 };
 

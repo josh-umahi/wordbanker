@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Post } from "../../../types/Post";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Post } from '../../../types/Post';
 
-import { updatePost } from "../../actions/posts";
-import initialPostData from "./constants";
-import ModalForm from "./ModalForm";
+import { updatePost } from '../../actions/posts';
+import initialPostData from './constants';
+import ModalForm from './ModalForm';
 
 type Props = {
   currentPostData: Partial<Post>;
@@ -24,7 +24,7 @@ const EditPostModalForm: React.FC<Props> = ({
   }, [editPostModalIsOpen, currentPostData]);
 
   const handleSubmit = (trimmedPostData: Partial<Post>) => {
-    dispatch(updatePost(currentPostData._id, { ...trimmedPostData }));
+    // dispatch(updatePost(currentPostData._id, { ...trimmedPostData }));
     closeEditModal();
   };
 
@@ -43,7 +43,7 @@ const EditPostModalForm: React.FC<Props> = ({
 
   return (
     <ModalForm
-      formTitle="Editing Post"
+      formTitle='Editing Post'
       open={editPostModalIsOpen}
       onClose={onClose}
       postData={postData as Post}
