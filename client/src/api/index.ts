@@ -2,7 +2,8 @@ import axios from 'axios';
 import { getLocalStorageProfile } from '../utils/localStorage';
 
 const API = axios.create({
-  baseURL: 'https://wordbanker-api.onrender.com',
+  baseURL:
+    'https://wordbanker-server-o3hfuqro4-joshua-umahis-projects.vercel.app',
 });
 
 API.interceptors.request.use((req) => {
